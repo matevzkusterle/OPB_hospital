@@ -10,4 +10,4 @@ Prijaviti se je mogoče kot:
 
 Pacient ima vpogled do svojih podatkov, zdravnikov in diagnoz. Če se prijavi zdravnik, mu je omogočen pogled vseh svojih pacientov in njihovih diagnoz. Ogleda si lahko tudi podrobnosti svoje specializacije. Zdravnik ima možnost v sistem dodati novega pacienta. Administrator ima pogled do vsega.
 
-ER diagram
+![ER diagram](ER_diagram/er_diagram_hospital.jpg)
