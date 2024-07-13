@@ -1,0 +1,47 @@
+%rebase('osnova.html', naslov='Seznam zdravnikov', stran='zdravniki')
+
+<div >
+    <div style="display: flex;">
+    <div style="flex:1;">
+      <table 
+      data-toggle="table" 
+      data-sticky-header="true" 
+      data-search="true"
+      data-show-columns="true" 
+      data-sortable="true"
+      id="izdelki" 
+      data-height="500" >
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ime</th>
+                <th>Priimek</th>
+                <th>Opis</th>  
+             </tr>
+        </thead>
+     
+      %for zdravnikk in zdravniki:
+        <tr>
+           <td>{{zdravnikk.id}}</td>
+           <td>{{zdravnikk.ime}}</td>
+           <td>{{zdravnikk.priimek}}</td>
+           <td>{{zdravnikk.opis}}</td>
+           <!-- <td>
+            <a href="url('izbrisi_izdelek', id=izdelek.id)"> izbriši</a>
+           </td> -->
+     
+        </tr>
+      %end
+      </table>
+
+
+    </div>
+
+    </div>
+   
+</div>
+
+
+  
+
+  

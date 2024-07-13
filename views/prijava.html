@@ -1,0 +1,26 @@
+% setdefault('napaka', '')
+% setdefault('podnaslov', '')
+%rebase('osnova.html', napaka=napaka, naslov='Prijava', podnaslov=podnaslov)
+
+<div class="columns">
+  <div class="column is-narrow">
+    <aside class="menu">
+      <p class="menu-label">
+        Prijava
+      </p>
+      <ul class="menu-list">
+        <li><a href="{{url('prijava_next')}}">Prijava</a></li>
+        
+      </ul>
+
+      <p class="menu-label">
+        Registracija
+      </p>
+      <ul class="menu-list">
+        <li><a href="{{url('registracija_zdravnik')}}">Registracija za zdravnike</a></li>
+        <li><a href="{{url('registracija_pacient')}}">Registracija za paciente</a></li>
+
+    </aside>
+  </div>
+</div>
+                    

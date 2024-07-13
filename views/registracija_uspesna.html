@@ -1,0 +1,8 @@
+%rebase('osnova.html', naslov='Registracija uspešna', stran='registracija uspešna')
+
+<form action="{{url('prijava')}}" method="GET" style="width:60%">
+    
+
+  %if napaka:
+  <p class="opozorilo">{{napaka}}</p>
+%end

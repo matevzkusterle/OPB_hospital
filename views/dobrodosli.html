@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bolnišnica</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<body>
+  <section class="hero is-small">
+    <div class="hero-body">
+      <p class="title">
+        Bolnišnica
+      </p>
+      <p class="subtitle">
+          <nav class="right">
+            <div class="level-right">
+              <div class="columns">
+
+              </div>
+            </div>
+          </nav>
+      </p>
+    </div>
+  </section>
+
+  <section class="hero is-primary is-large">
+    <div class="hero-body">
+      <p class="title">
+        DOBRODOŠLI
+      </p>
+      <p class="subtitle"> 
+        <div>V tej bolnišnici imamo različne zdravnike in paciente. Vsi se morajo najprej registrirati,
+            nato pa se lahko tudi prijavijo. Če pacienta ali zdravnika ni v bazi, se ne more registrirati. </div>
+
+        
+        <div class="columns">
+          <div class="column">
+            <form method="GET" action="{{url('prijava')}}">
+              <button class="button is-light">Vstopi</button>
+            </form>
+          </div>
+        </div>
+      </p>
+    </div>
+  </section>
+
+  % if napaka:
+    <div class="alert alert-danger">
+      {{napaka}}
+    </div>
+  % end
+
+  
+</body>
+
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      <strong>Bolnišnica</strong> by <a href="https://github.com/matevzkusterle/OPB_hospital">Matevž Kusterle</a>.
+    </p>
+  </div>
+</footer>
+
+</html>

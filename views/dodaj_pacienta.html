@@ -1,0 +1,23 @@
+%rebase('osnova.html', naslov='Dodajanje pacienta', stran='pacienti')
+
+    % if rola == 'Zdravnik':
+    <form action="{{url('dodaj_pacienta')}}" method="POST", style="width: 60%; margin-left: 5%;">
+        <div class="form-group">
+           <label for="username">Ime</label>
+           <input type="input" class="form-control" name="ime"  placeholder="Vnesi ime pacienta">
+         </div>
+         <div class="form-group">
+           <label for="username">Priimek</label>
+           <input type="input" class="form-control" name="priimek"  placeholder="Vnesi priimek pacienta">
+         </div>
+         <div class="form-group">
+           <label for="username">SZZ</label>
+           <input type="input" class="form-control" name="szz"  placeholder="Vnesi številko zdravstvenega zavarovanja pacienta">
+
+        <button type="submit" class="btn btn-light">Dodaj</button>
+      </form>
+      
+      %else:
+      <p> Nimaš dovoljenja za ogled te strani!</p>
+
+    %end
