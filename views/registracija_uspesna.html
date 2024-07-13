@@ -1,8 +1,16 @@
 %rebase('osnova.html', naslov='Registracija uspešna', stran='registracija uspešna')
 
-<form action="{{url('prijava')}}" method="GET" style="width:60%">
-    
+%rebase('osnova.html', napaka=napaka, naslov='Registracija uspešna', podnaslov=reg uspešna)
 
-  %if napaka:
-  <p class="opozorilo">{{napaka}}</p>
-%end
+<div class="columns">
+  <div class="column is-narrow">
+    <aside class="menu">
+      <p class="menu-label">
+        Nazaj na prijavo
+      </p>
+      <ul class="menu-list">
+        <li><a href="{{url('prijava')}}">Nazaj na prijavo</a></li>
+      </ul>
+    </aside>
+  </div>
+</div>

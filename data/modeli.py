@@ -56,3 +56,12 @@ class pacientDiag:  #pacient skupaj z njegovo diagnozo
     koda: str = field(default="")
     detajli: str = field(default="")
     aktivnost: str = field(default="")
+
+@dataclass_json
+@dataclass
+class diagnoza:
+    koda: str = field(default="")
+    detajli: str = field(default="")
+    aktivnost: str = field(default="")
+
+

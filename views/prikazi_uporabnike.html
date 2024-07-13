@@ -1,0 +1,51 @@
+%rebase('osnova.html', naslov='Seznam uporabnikov v bazi', stran='uporabiki')
+
+<div >
+    <div style="display: flex;">
+    <div style="flex:1;">
+      <table 
+      data-toggle="table" 
+      data-sticky-header="true" 
+      data-search="true"
+      data-show-columns="true" 
+      data-sortable="true"
+      id="izdelki" 
+      data-height="500" >
+        <thead>
+            <tr>
+                <th>Uporabniško ime</th>
+                <th>Role</th>
+                <th>Ime</th>
+                <th>Priimek</th>
+                <th>Kodirano geslo</th>
+                <th>Zadnja prijava</th>  
+             </tr>
+        </thead>
+     
+      %for uporabnik in uporabniki:
+        <tr>
+           <td>{{uporabnik.username}}</td>
+           <td>{{uporabnik.role}}</td>
+           <td>{{uporabnik.ime}}</td>
+           <td>{{uporabnik.priimek}}</td>
+           <td>{{uporabnik.password_hash}}</td>
+           <td>{{uporabnik.last_login}}</td>
+           <!-- <td>
+            <a href="url('izbrisi_izdelek', id=izdelek.id)"> izbriši</a>
+           </td> -->
+     
+        </tr>
+      %end
+      </table>
+
+
+    </div>
+
+    </div>
+   
+</div>
+
+
+  
+
+  

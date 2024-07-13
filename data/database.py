@@ -5,7 +5,7 @@ psycopg2.extensions.register_type(psycopg2.extensions.UNICODE) # se znebimo prob
 import os
 from typing import List, TypeVar, Type, Callable, Any
 from data.modeli import (
-    pacient, pacientDiag, zdravnik, uporabnikDto, uporabnik
+    pacient, pacientDiag, zdravnik, uporabnikDto, uporabnik, diagnoza
 )
 from pandas import DataFrame
 from re import sub
@@ -307,7 +307,7 @@ class Repo:
         return [zdravnik(id, ime, priimek, opis) for \
                 (id, ime, priimek, opis) in zdravnikk]
 
-    def pacient(self) -> List[pacientDiag]: 
+    def pacientDiag(self) -> List[pacientDiag]: 
 
         self.cur.execute(
             """
@@ -323,15 +323,42 @@ class Repo:
         return [pacientDiag(id, ime, priimek, szz, koda, detajli, aktivnost) for \
                 (id, ime, priimek, szz, koda, detajli, aktivnost) in pacientt]
     
+    def pacient(self) -> List[pacient]:
+
+        self.cur.execute(
+            """
+            SELECT i.id, i.ime, i.priimek, i.szz FROM pacient i
+            """
+        )
+
+        pacientt = self.cur.fetchall()
+
+        if pacientt is None:
+            return []
+        return [pacient(id, ime, priimek, szz) for (id, ime, priimek, szz) in pacientt]
+    
     def uporabnik(self) -> List[uporabnik]:
         self.cur.execute(
             """
-            SELECT i.username, i.role, i.password_hash FROM uporabnik i
-
+            SELECT i.username, i.role, i.ime, i.priimek, i.password_hash, i.last_login FROM uporabnik i
             """)
         
         uporabnikk = self.cur.fetchall()
 
         if uporabnikk is None:
             return []
-        return [uporabnik(username, role,password_hash) for (username, role, password_hash) in uporabnikk]
+        return [uporabnik(username, role, ime, priimek, password_hash, last_login) for \
+                 (username, role, ime, priimek, password_hash, last_login) in uporabnikk]
+    
+    def diagnoza(self) -> List[diagnoza]:
+        self.cur.execute(
+            """
+            SELECT i.koda, i.detajli, i.aktivnost FROM diagnoze i
+            """)
+        
+        diagnoze = self.cur.fetchall()
+
+        if diagnoze is None:
+            return []
+        return [diagnoza(koda, detajli, aktivnost) for \
+                 (koda, detajli, aktivnost) in diagnoze]
