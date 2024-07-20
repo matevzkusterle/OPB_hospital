@@ -14,6 +14,7 @@ from dataclasses_json import dataclass_json
 @dataclass
 class uporabnik:
     username: str = field(default="")
+    id: int = field(default="")
     role: str = field(default="")
     ime: str = field(default="")
     priimek: str = field(default="")

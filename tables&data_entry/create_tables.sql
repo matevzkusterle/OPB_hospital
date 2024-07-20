@@ -38,6 +38,7 @@ CREATE TABLE bridge (
 
 CREATE TABLE uporabnik (
     username TEXT PRIMARY KEY,
+    id INTEGER NOT NULL,
     role TEXT NOT NULL,
     ime TEXT NOT NULL,
     priimek TEXT NOT NULL,

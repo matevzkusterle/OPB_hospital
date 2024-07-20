@@ -72,6 +72,17 @@ def prijava_next():
     """
     username = request.forms.get('username')
     password = request.forms.get('password')
+
+    if username == 'admin' and password == 'admin':
+        if not auth.obstaja_uporabnik('admin'):
+            auth.dodaj_uporabnika('admin', 0, 'admin', username, 'admin', geslo=password)
+        # response.set_cookie("uporabnik", username)
+        # response.set_cookie("rola", 'admin')
+        # prijava = auth.prijavi_uporabnika(username, password)
+        # return redirect(url('admin'))
+
+    if not all([username, password]):
+        return template('prijava_next.html', napaka="Prosim, izpolnite vsa polja.")
     
     if not auth.obstaja_uporabnik(username):
         return template("prijava_next.html", napaka="Uporabnik s tem imenom ne obstaja")
@@ -85,8 +96,7 @@ def prijava_next():
     if prijava:
         response.set_cookie("uporabnik", username)
         response.set_cookie("rola", prijava.role)
-        
-        if prijava.role == 'admin':
+        if prijava.role=='admin':
             return redirect(url('admin'))
         if prijava.role=='Zdravnik':
             return redirect(url('pogled_zdravnik')) ### neki kar je html od zravnika, popravi!
@@ -150,12 +160,11 @@ def registracija_zdravnik():
     
     try:
         if (ime, priimek) in existing_doctors:
+            nas_zdravnik = repo.dobi_gen_dvoje(zdravnik, ime, priimek, prvi="ime", drugi="priimek")
             # Dodamo uporabnika in zdravnika v bazo
             
-            auth.dodaj_uporabnika(uporabnisko_ime, 'Zdravnik',ime, priimek, geslo=geslo)
-
+            auth.dodaj_uporabnika(uporabnisko_ime, nas_zdravnik.id, 'Zdravnik',ime, priimek, geslo=geslo)
             return template('registracija_uspesna.html', napaka = None)
-
     except BaseException as error:
         return template('registracija_zdravnik.html', napaka="Napaka pri registraciji: {}".format(error))
 
@@ -180,7 +189,7 @@ def registracija_pacient():
     potrditev_gesla = request.forms.get('password2')
 
     pacienti = repo.pacient()  # Pridobimo seznam zdravnikov iz baze
-    existing_pacients = [(pacient.ime, pacient.priimek) for pacient in pacienti]
+    existing_pacients = [pacient.szz for pacient in pacienti]
     uporabniki = repo.uporabnik()
     existing_usernames = [uporabnik.username for uporabnik in uporabniki]
 
@@ -195,10 +204,10 @@ def registracija_pacient():
 
     
     try:
-        if (ime, priimek) in existing_pacients:
+        if szz in existing_pacients:
             # Dodamo uporabnika in zdravnika v bazo
-            
-            auth.dodaj_uporabnika(uporabnisko_ime, 'Pacient',ime, priimek, geslo=geslo)
+            nas_pacient = repo.dobi_gen_id(pacient, szz, id_col="szz")
+            auth.dodaj_uporabnika(uporabnisko_ime, nas_pacient.szz, 'Pacient',ime, priimek, geslo=geslo)
 
             return template('registracija_uspesna.html', napaka =None, ime=ime, priimek=priimek)
         else:
@@ -208,7 +217,7 @@ def registracija_pacient():
         return template('registracija_pacient.html', napaka="Napaka pri registraciji.")
 
 
-
+##----------------FUNCTIONS FOR ADMIN-----------------##
 @get('/admin')
 def admin():
     return template('admin.html', napaka = None)
@@ -235,6 +244,16 @@ def prikazi_uporabnike():
     uporabniki = repo.uporabnik()
 
     return template_user('prikazi_uporabnike.html', uporabniki = uporabniki)
+
+##----------------FUNCTIONS FOR ZDRAVNIK-----------------##
+@get('/pogled_zdravnik')
+def pogled_zdravnik():
+    return template('pogled_zdravnik.html', napaka = None)
+
+@get('/pogled_zdravnik/prikazi_moje_paciente')
+def prikazi_moje_paciente():
+    pacienti = repo.pacientDiag()
+    return template_user('prikazi_moje_paciente.html', pacienti=pacienti)
 
 @get('/dodaj_pacienta')
 def dodaj_pacienta():

@@ -66,6 +66,21 @@ class Repo:
     
         return typ.from_dict(d)
     
+    def dobi_gen_dvoje(self, typ: Type[T], ime: str, priimek: str, prvi = "id", drugi = "id") -> T:
+        """
+        Generična metoda, ki vrne dataclass objekt pridobljen iz baze na podlagi dveh podatkov.
+        """
+        tbl_name = typ.__name__
+        sql_cmd = f'SELECT * FROM {tbl_name} WHERE {prvi} = %s AND {drugi} = %s';
+        self.cur.execute(sql_cmd, (ime, priimek))
+
+        d = self.cur.fetchone()
+
+        if d is None:
+            raise Exception(f'Vrstica z imenom {ime} in priimkom {priimek} ne obstaja v {tbl_name}');
+    
+        return typ.from_dict(d)
+    
     def izbrisi_gen(self,  typ: Type[T], id: int | str, id_col = "id"):
         """
         Generična metoda, ki vrne dataclass objekt pridobljen iz baze na podlagi njegovega idja.
@@ -296,7 +311,6 @@ class Repo:
             """
             SELECT i.id, i.ime, i.priimek, k.opis FROM "zdravnik" i
             left join specializacije k on i.specializacija = k.id
-            WHERE i.ime != 'admin'
             """)
         
         zdravnikk = self.cur.fetchall()
@@ -308,6 +322,22 @@ class Repo:
                 (id, ime, priimek, opis) in zdravnikk]
 
     def pacientDiag(self) -> List[pacientDiag]: 
+
+        self.cur.execute(
+            """
+            SELECT i.id, i.ime, i.priimek, i.szz, k.koda, k.detajli, k.aktivnost FROM pacient i
+            left join diagnoze k on i.id = k.pacient
+            """)
+        
+        pacientt = self.cur.fetchall()
+        
+        if pacientt is None:
+            return []
+
+        return [pacientDiag(id, ime, priimek, szz, koda, detajli, aktivnost) for \
+                (id, ime, priimek, szz, koda, detajli, aktivnost) in pacientt]
+    
+    def mojpacientDiag(self) -> List[pacientDiag]: 
 
         self.cur.execute(
             """
@@ -340,15 +370,15 @@ class Repo:
     def uporabnik(self) -> List[uporabnik]:
         self.cur.execute(
             """
-            SELECT i.username, i.role, i.ime, i.priimek, i.password_hash, i.last_login FROM uporabnik i
+            SELECT i.username, i.id, i.role, i.ime, i.priimek, i.password_hash, i.last_login FROM uporabnik i
             """)
         
         uporabnikk = self.cur.fetchall()
 
         if uporabnikk is None:
             return []
-        return [uporabnik(username, role, ime, priimek, password_hash, last_login) for \
-                 (username, role, ime, priimek, password_hash, last_login) in uporabnikk]
+        return [uporabnik(username, id, role, ime, priimek, password_hash, last_login) for \
+                 (username, id, role, ime, priimek, password_hash, last_login) in uporabnikk]
     
     def diagnoza(self) -> List[diagnoza]:
         self.cur.execute(

@@ -211,3 +211,6 @@ INSERT INTO zdravnik VALUES
     (666, 'admin', 'admin', -1);
 
 UPDATE uporabnik SET role = 'admin' WHERE  username = 'admin';
+
+--izbriši vse uporabnike iz tabele uporabnik
+DELETE FROM uporabnik;

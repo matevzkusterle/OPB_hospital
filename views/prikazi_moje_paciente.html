@@ -1,4 +1,4 @@
-%rebase('osnova.html', naslov='Seznam uporabnikov v bazi', stran='uporabiki')
+%rebase('osnova.html', naslov='Seznam mojih pacientov z diagnozami', stran='pacienti')
 
 <div >
     <div style="display: flex;">
@@ -13,25 +13,25 @@
       data-height="500" >
         <thead>
             <tr>
-                <th>Uporabniško ime</th>
                 <th>Id</th>
-                <th>Role</th>
                 <th>Ime</th>
                 <th>Priimek</th>
-                <th>Kodirano geslo</th>
-                <th>Zadnja prijava</th>  
+                <th>szz</th>
+                <th>koda</th>
+                <th>detajli</th>
+                <th>aktivnost</th>  
              </tr>
         </thead>
      
-      %for uporabnik in uporabniki:
+      %for pacientt in pacienti:
         <tr>
-           <td>{{uporabnik.username}}</td>
-           <td>{{uporabnik.id}}</td>
-           <td>{{uporabnik.role}}</td>
-           <td>{{uporabnik.ime}}</td>
-           <td>{{uporabnik.priimek}}</td>
-           <td>{{uporabnik.password_hash}}</td>
-           <td>{{uporabnik.last_login}}</td>
+           <td>{{pacientt.id}}</td>
+           <td>{{pacientt.ime}}</td>
+           <td>{{pacientt.priimek}}</td>
+           <td>{{pacientt.szz}}</td>
+           <td>{{pacientt.koda}}</td>
+           <td>{{pacientt.detajli}}</td>
+           <td>{{pacientt.aktivnost}}</td>
            <!-- <td>
             <a href="url('izbrisi_izdelek', id=izdelek.id)"> izbriši</a>
            </td> -->
