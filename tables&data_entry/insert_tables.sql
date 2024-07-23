@@ -14,67 +14,68 @@ INSERT INTO zdravnik (id, ime, priimek, specializacija) VALUES (5, 'Sara', 'Vidm
 INSERT INTO zdravnik (id, ime, priimek, specializacija) VALUES (6, 'Sergej', 'Maze', -6);
 
 
-INSERT INTO pacient (id, ime, priimek, szz) VALUES (1001, 'Tina', 'Pogorelc', 9876543210);
-INSERT INTO pacient (id, ime, priimek, szz) VALUES (1002, 'Miha', 'Petek', 1234567890);
-INSERT INTO pacient (id, ime, priimek, szz) VALUES (1003, 'Eva', 'Jereb', 2345678901);
-INSERT INTO pacient (id, ime, priimek, szz) VALUES (1004, 'Alen', 'Hribar', 3456789012);
-INSERT INTO pacient (id, ime, priimek, szz) VALUES (1005, 'Katja', 'Rupnik', 4567890123);
-INSERT INTO pacient (id, ime, priimek, szz) VALUES (1006, 'Tina', 'Pogorelc', 5678901234);
-INSERT INTO pacient (id, ime, priimek, szz) VALUES (1007, 'Andrej', 'Potocnik', 6789012345);
-INSERT INTO pacient (id, ime, priimek, szz) VALUES (1008, 'Klemen', 'Bizjak', 7890123456);
-INSERT INTO pacient (id, ime, priimek, szz) VALUES (1009, 'Maja', 'Kos', 8901234567);
-INSERT INTO pacient (id, ime, priimek, szz) VALUES (1010, 'Gregor', 'Kralj', 8901234567);
-INSERT INTO pacient (id, ime, priimek, szz) VALUES (1011, 'Jana', 'Petric', 1029384756);
-INSERT INTO pacient (id, ime, priimek, szz) VALUES (1012, 'Bojan', 'Strukelj', 6543210987);
-INSERT INTO pacient (id, ime, priimek, szz) VALUES (1013, 'Irena', 'Zore', 543210876);
+INSERT INTO pacient (id, ime, priimek, szz) VALUES (1001, 'Tina', 'Pogorelc', 3981276450);
+INSERT INTO pacient (id, ime, priimek, szz) VALUES (1002, 'Miha', 'Petek', 7164930285);
+INSERT INTO pacient (id, ime, priimek, szz) VALUES (1003, 'Eva', 'Jereb', 2548613790);
+INSERT INTO pacient (id, ime, priimek, szz) VALUES (1004, 'Alen', 'Hribar', 5376924180);
+INSERT INTO pacient (id, ime, priimek, szz) VALUES (1005, 'Katja', 'Rupnik', 8246731950);
+INSERT INTO pacient (id, ime, priimek, szz) VALUES (1006, 'Tina', 'Pogorelc', 1904728356);
+INSERT INTO pacient (id, ime, priimek, szz) VALUES (1007, 'Andrej', 'Potocnik', 3560891247);
+INSERT INTO pacient (id, ime, priimek, szz) VALUES (1008, 'Klemen', 'Bizjak', 6072958314);
+INSERT INTO pacient (id, ime, priimek, szz) VALUES (1009, 'Maja', 'Kos', 4783920165);
+INSERT INTO pacient (id, ime, priimek, szz) VALUES (1010, 'Gregor', 'Kralj', 9230481675);
+INSERT INTO pacient (id, ime, priimek, szz) VALUES (1011, 'Jana', 'Petric', 1357924680);
+INSERT INTO pacient (id, ime, priimek, szz) VALUES (1012, 'Bojan', 'Strukelj', 8064519273);
+INSERT INTO pacient (id, ime, priimek, szz) VALUES (1013, 'Irena', 'Zore', 9143827506);
+
 
 -- Diagnoze za pacienta 1001
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('10-ABCD', 'Prehlad', TRUE, 1001);
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('45-EFGH', 'Zvit glezenj', FALSE, 1001);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('10-ABCD', 'Prehlad', TRUE, 1001);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('45-EFGH', 'Zvit glezenj', FALSE, 1001);
 
 -- Diagnoze za pacienta 1002
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('27-IJKL', 'Gripa', TRUE, 1002);
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('88-MNOP', 'Povisan krvni tlak', FALSE, 1002);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('27-IJKL', 'Gripa', TRUE, 1002);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('88-MNOP', 'Povisan krvni tlak', FALSE, 1002);
 
 -- Diagnoze za pacienta 1003
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('62-QRST', 'Motnje spanja', TRUE, 1003);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('62-QRST', 'Motnje spanja', TRUE, 1003);
 
 -- Diagnoze za pacienta 1004
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('53-UVWX', 'Prebavne tezave', TRUE, 1004);
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('71-YZAB', 'Migrena', FALSE, 1004);
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('94-CDEF', 'Sladkorna bolezen', TRUE, 1004);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('53-UVWX', 'Prebavne tezave', TRUE, 1004);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('71-YZAB', 'Migrena', FALSE, 1004);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('94-CDEF', 'Sladkorna bolezen', TRUE, 1004);
 
 -- Diagnoze za pacienta 1005
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('09-GHIJ', 'Hrupno dihanje', TRUE, 1005);
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('36-KLMN', 'Bolecine v hrbtu', FALSE, 1005);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('09-GHIJ', 'Hrupno dihanje', TRUE, 1005);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('36-KLMN', 'Bolecine v hrbtu', FALSE, 1005);
 
 -- Diagnoze za pacienta 1006
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('82-OPQR', 'Anksioznost', FALSE, 1006);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('82-OPQR', 'Anksioznost', FALSE, 1006);
 
 -- Diagnoze za pacienta 1007
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('17-STUV', 'Astma', TRUE, 1007);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('17-STUV', 'Astma', TRUE, 1007);
 
 -- Diagnoze za pacienta 1008
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('49-WXYZ', 'Okuzba secil', FALSE, 1008);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('49-WXYZ', 'Okuzba secil', FALSE, 1008);
 
 -- Diagnoze za pacienta 1009
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('76-1234', 'Bolecine v trebuhu', TRUE, 1009);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('76-1234', 'Bolecine v trebuhu', TRUE, 1009);
 
 -- Diagnoze za pacienta 1010
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('28-5678', 'Tezave s scitnico', FALSE, 1010);
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('51-90AB', 'Tezave s spanjem', TRUE, 1010);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('28-5678', 'Tezave s scitnico', FALSE, 1010);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('51-90AB', 'Tezave s spanjem', TRUE, 1010);
 
 -- Diagnoze za pacienta 1011
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('64-CDEF', 'Depresija', TRUE, 1011);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('64-CDEF', 'Depresija', TRUE, 1011);
 
 -- Diagnoze za pacienta 1012
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('93-GHIJ', 'Glavobol', FALSE, 1012);
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('12-KLMN', 'Tezave s sluhom', TRUE, 1012);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('93-GHIJ', 'Glavobol', FALSE, 1012);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('12-KLMN', 'Tezave s sluhom', TRUE, 1012);
 
 -- Diagnoze za pacienta 1013
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('39-OPQR', 'Bolecine v sklepih', FALSE, 1013);
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('85-STUV', 'Povisana telesna temperatura', TRUE, 1013);
-INSERT INTO diagnoze (koda, detajli, aktivnost, pacient) VALUES ('56-WXYZ', 'Tezave z vidom', TRUE, 1013);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('39-OPQR', 'Bolecine v sklepih', FALSE, 1013);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('85-STUV', 'Povisana telesna temperatura', TRUE, 1013);
+INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('56-WXYZ', 'Tezave z vidom', TRUE, 1013);
 
 
 

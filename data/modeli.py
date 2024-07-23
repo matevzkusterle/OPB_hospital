@@ -64,5 +64,12 @@ class diagnoza:
     koda: str = field(default="")
     detajli: str = field(default="")
     aktivnost: str = field(default="")
+    id: int = field(default="")
 
 
+@dataclass_json
+@dataclass
+class specializacije:
+    ime: str = field(default="")
+    priimek: str = field(default="")
+    opis: str = field(default="")

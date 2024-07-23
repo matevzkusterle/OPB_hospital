@@ -12,7 +12,7 @@ CREATE TABLE pacient (
     szz BIGINT NOT NULL --CHECK (szz >= 1000000000 AND szz <= 9999999999) --szz = 10-mestna stevilka zdravstvenega zavarovanja
 );
 
-CREATE TABLE diagnoze (
+CREATE TABLE diagnoza (
     koda TEXT PRIMARY KEY,
     detajli TEXT NOT NULL,
     aktivnost BOOLEAN NOT NULL,

@@ -5,7 +5,7 @@ psycopg2.extensions.register_type(psycopg2.extensions.UNICODE) # se znebimo prob
 import os
 from typing import List, TypeVar, Type, Callable, Any
 from data.modeli import (
-    pacient, pacientDiag, zdravnik, uporabnikDto, uporabnik, diagnoza
+    pacient, pacientDiag, zdravnik, uporabnikDto, uporabnik, diagnoza, specializacije
 )
 from pandas import DataFrame
 from re import sub
@@ -80,6 +80,30 @@ class Repo:
             raise Exception(f'Vrstica z imenom {ime} in priimkom {priimek} ne obstaja v {tbl_name}');
     
         return typ.from_dict(d)
+    
+    def izberi_paciente_zdravnika(self, ime: str, priimek: str) -> List[pacient]:
+        """
+        Vrne paciente danega zdravnika v seznamu.
+        """
+        
+        self.cur.execute(
+            """
+            SELECT pacient.* FROM bridge
+            JOIN zdravnik ON bridge.id_zdravnik = zdravnik.id
+            JOIN pacient ON bridge.id_pacient = pacient.id
+            WHERE bridge.povezava = True AND zdravnik.ime = %s AND zdravnik.priimek = %s
+            """,
+            (ime, priimek)
+            )
+        
+
+        pacienti = self.cur.fetchall()
+
+        if pacienti is None:
+            raise Exception(f'Vrstica z imenom {ime} in priimkom {priimek} ne obstaja v tabeli pacient');
+    
+        # return [pacient.from_dict(d) for d in pacienti]
+        return [pacient(id, ime, priimek, szz) for (id, ime, priimek, szz) in pacienti]
     
     def izbrisi_gen(self,  typ: Type[T], id: int | str, id_col = "id"):
         """
@@ -337,21 +361,26 @@ class Repo:
         return [pacientDiag(id, ime, priimek, szz, koda, detajli, aktivnost) for \
                 (id, ime, priimek, szz, koda, detajli, aktivnost) in pacientt]
     
-    def mojpacientDiag(self) -> List[pacientDiag]: 
+    
+    def pacient_to_pacientDiag(self, pacients: List[pacient]) -> List[pacientDiag]:
+        pacient_ids = [p.id for p in pacients]
+        pacient_ids_str = ', '.join(str(id) for id in pacient_ids)
 
         self.cur.execute(
-            """
+            f"""
             SELECT i.id, i.ime, i.priimek, i.szz, k.koda, k.detajli, k.aktivnost FROM pacient i
-            left join diagnoze k on i.id = k.pacient
-            """)
-        
-        pacientt = self.cur.fetchall()
-        
-        if pacientt is None:
+            LEFT JOIN diagnoza k ON i.id = k.pacient
+            WHERE i.id IN ({pacient_ids_str})
+            """
+        )
+
+        pacientDiags = self.cur.fetchall()
+
+        if pacientDiags is None:
             return []
 
         return [pacientDiag(id, ime, priimek, szz, koda, detajli, aktivnost) for \
-                (id, ime, priimek, szz, koda, detajli, aktivnost) in pacientt]
+                (id, ime, priimek, szz, koda, detajli, aktivnost) in pacientDiags]
     
     def pacient(self) -> List[pacient]:
 
@@ -383,7 +412,7 @@ class Repo:
     def diagnoza(self) -> List[diagnoza]:
         self.cur.execute(
             """
-            SELECT i.koda, i.detajli, i.aktivnost FROM diagnoze i
+            SELECT i.koda, i.detajli, i.aktivnost FROM diagnoza i
             """)
         
         diagnoze = self.cur.fetchall()
@@ -392,3 +421,20 @@ class Repo:
             return []
         return [diagnoza(koda, detajli, aktivnost) for \
                  (koda, detajli, aktivnost) in diagnoze]
+    
+    def specializacija_zdravnik(self, ime: str, priimek: str) -> specializacije:
+        self.cur.execute(
+            """
+            SELECT i.ime, i.priimek, k.opis FROM zdravnik i
+            LEFT JOIN specializacije k ON i.specializacija = k.id
+            WHERE i.ime = %s AND i.priimek = %s
+            """,
+            (ime, priimek)
+        )
+        
+        zdravnik = self.cur.fetchone()
+
+        if zdravnik is None:
+            raise ValueError("Zdravnik not found")
+        
+        return specializacije(zdravnik[0], zdravnik[1], zdravnik[2])
