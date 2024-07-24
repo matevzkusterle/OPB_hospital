@@ -164,3 +164,6 @@ auth_private.py
 
 venv/
 *pycache*
+
+# my files
+.vscode/

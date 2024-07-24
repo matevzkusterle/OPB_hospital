@@ -120,7 +120,7 @@ def registracija_zdravnik():
         nas_zdravnik = repo.dobi_gen_dvoje(zdravnik, ime, priimek, prvi="ime", drugi="priimek")
         # Dodamo uporabnika in zdravnika v bazo
         
-        auth.dodaj_uporabnika(uporabnisko_ime, nas_zdravnik.id, 'Zdravnik',ime, priimek, geslo=geslo)
+        auth.dodaj_uporabnika(uporabnisko_ime, nas_zdravnik.id, None, 'Zdravnik',ime, priimek, geslo=geslo)
         return template('registracija_uspesna.html', napaka = None)
     else:
         return template('registracija_zdravnik.html', napaka=f"Napaka pri registraciji: Imena {ime} {priimek} ni v bazi. Za registracijo "
@@ -168,9 +168,9 @@ def registracija_pacient():
         if int(szz) in existing_pacients: 
             # Dodamo uporabnika in zdravnika v bazo
             nas_pacient = repo.dobi_gen_id(pacient, szz, id_col="szz")
-            auth.dodaj_uporabnika(uporabnisko_ime, nas_pacient.id, 'Pacient', ime, priimek, geslo=geslo)
+            auth.dodaj_uporabnika(uporabnisko_ime, None, nas_pacient.id, 'Pacient', ime, priimek, geslo=geslo)
 
-            return template('registracija_uspesna.html', napaka =None, ime=ime, priimek=priimek)
+            return template('registracija_uspesna.html', napaka=None, ime=ime, priimek=priimek)
         else:
             return template('registracija_pacient.html', napaka="Napaka pri registracijiii.")
 
@@ -192,7 +192,7 @@ def prijava_next():
 
     if username == 'admin' and password == 'admin':
         if not auth.obstaja_uporabnik('admin'):
-            auth.dodaj_uporabnika('admin', 0, 'admin', username, 'admin', geslo=password)
+            auth.dodaj_uporabnika('admin', None, None, 'admin', username, 'admin', geslo=password)
 
     if not all([username, password]):
         return template('prijava_next.html', napaka="Prosim, izpolnite vsa polja.")
@@ -310,7 +310,7 @@ def dodaj_pacienta_post():
     if not ime or not priimek or not szz:
         return template('dodaj_pacienta.html', rola=rola, napaka="Prosim, izpolnite vsa polja.")
     existing_pacients = [pacient.szz for pacient in repo.pacient()]
-    if szz in existing_pacients:
+    if int(szz) in existing_pacients:
         return template('dodaj_pacienta.html', rola=rola, napaka="Pacient s tem številom zdravstvenega zavarovanja že obstaja.")
     try:
         pacientt = pacient(ime=ime, priimek=priimek, szz=szz)

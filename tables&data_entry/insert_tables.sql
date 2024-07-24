@@ -80,125 +80,35 @@ INSERT INTO diagnoza (koda, detajli, aktivnost, pacient) VALUES ('56-WXYZ', 'Tez
 
 
 
--- Vnosi v tabelo bridge za povezavo vsakega pacienta z vsakim zdravnikom
+-- Vnosi v tabelo bridge 
 
--- Povezava pacienta 1001 z vsemi zdravniki
--- Povezava pacienta 1001 z vsemi zdravniki
-INSERT INTO bridge (id_pacient, id_zdravnik, povezava) VALUES
-    (1001, 1, TRUE),
-    (1001, 2, FALSE),
-    (1001, 3, TRUE),
-    (1001, 4, FALSE),
-    (1001, 5, TRUE),
-    (1001, 6, FALSE);
-
--- Povezava pacienta 1002 z vsemi zdravniki
-INSERT INTO bridge (id_pacient, id_zdravnik, povezava) VALUES
-    (1002, 1, TRUE),
-    (1002, 2, TRUE),
-    (1002, 3, FALSE),
-    (1002, 4, TRUE),
-    (1002, 5, FALSE),
-    (1002, 6, FALSE);
-
--- Povezava pacienta 1003 z vsemi zdravniki
-INSERT INTO bridge (id_pacient, id_zdravnik, povezava) VALUES
-    (1003, 1, FALSE),
-    (1003, 2, TRUE),
-    (1003, 3, FALSE),
-    (1003, 4, TRUE),
-    (1003, 5, TRUE),
-    (1003, 6, FALSE);
-
--- Povezava pacienta 1004 z vsemi zdravniki
-INSERT INTO bridge (id_pacient, id_zdravnik, povezava) VALUES
-    (1004, 1, TRUE),
-    (1004, 2, TRUE),
-    (1004, 3, FALSE),
-    (1004, 4, FALSE),
-    (1004, 5, TRUE),
-    (1004, 6, TRUE);
-
--- Povezava pacienta 1005 z vsemi zdravniki
-INSERT INTO bridge (id_pacient, id_zdravnik, povezava) VALUES
-    (1005, 1, FALSE),
-    (1005, 2, TRUE),
-    (1005, 3, FALSE),
-    (1005, 4, TRUE),
-    (1005, 5, FALSE),
-    (1005, 6, TRUE);
-
--- Povezava pacienta 1006 z vsemi zdravniki
-INSERT INTO bridge (id_pacient, id_zdravnik, povezava) VALUES
-    (1006, 1, TRUE),
-    (1006, 2, FALSE),
-    (1006, 3, TRUE),
-    (1006, 4, FALSE),
-    (1006, 5, TRUE),
-    (1006, 6, FALSE);
-
--- Povezava pacienta 1007 z vsemi zdravniki
-INSERT INTO bridge (id_pacient, id_zdravnik, povezava) VALUES
-    (1007, 1, TRUE),
-    (1007, 2, FALSE),
-    (1007, 3, TRUE),
-    (1007, 4, TRUE),
-    (1007, 5, FALSE),
-    (1007, 6, FALSE);
-
--- Povezava pacienta 1008 z vsemi zdravniki
-INSERT INTO bridge (id_pacient, id_zdravnik, povezava) VALUES
-    (1008, 1, FALSE),
-    (1008, 2, TRUE),
-    (1008, 3, FALSE),
-    (1008, 4, TRUE),
-    (1008, 5, FALSE),
-    (1008, 6, TRUE);
-
--- Povezava pacienta 1009 z vsemi zdravniki
-INSERT INTO bridge (id_pacient, id_zdravnik, povezava) VALUES
-    (1009, 1, TRUE),
-    (1009, 2, FALSE),
-    (1009, 3, TRUE),
-    (1009, 4, TRUE),
-    (1009, 5, FALSE),
-    (1009, 6, FALSE);
-
--- Povezava pacienta 1010 z vsemi zdravniki
-INSERT INTO bridge (id_pacient, id_zdravnik, povezava) VALUES
-    (1010, 1, FALSE),
-    (1010, 2, TRUE),
-    (1010, 3, TRUE),
-    (1010, 4, FALSE),
-    (1010, 5, TRUE),
-    (1010, 6, FALSE);
-
--- Povezava pacienta 1011 z vsemi zdravniki
-INSERT INTO bridge (id_pacient, id_zdravnik, povezava) VALUES
-    (1011, 1, TRUE),
-    (1011, 2, FALSE),
-    (1011, 3, FALSE),
-    (1011, 4, TRUE),
-    (1011, 5, TRUE),
-    (1011, 6, FALSE);
-
--- Povezava pacienta 1012 z vsemi zdravniki
-INSERT INTO bridge (id_pacient, id_zdravnik, povezava) VALUES
-    (1012, 1, FALSE),
-    (1012, 2, TRUE),
-    (1012, 3, FALSE),
-    (1012, 4, TRUE),
-    (1012, 5, FALSE),
-    (1012, 6, TRUE);
-
--- Povezava pacienta 1013 z vsemi zdravniki
-INSERT INTO bridge (id_pacient, id_zdravnik, idpovezava) VALUES
-    (1013, 1, TRUE),
-    (1013, 2, FALSE),
-    (1013, 3, TRUE),
-    (1013, 4, FALSE),
-    (1013, 5, TRUE),
-    (1013, 6, FALSE);
+INSERT INTO bridge (id_pacient, id_zdravnik) VALUES
+    (1001, 1),
+    (1001, 4),
+    (1002, 3),
+    (1002, 6),
+    (1003, 1),
+    (1003, 4),
+    (1004, 3),
+    (1004, 6),
+    (1005, 1),
+    (1005, 6),
+    (1006, 4),
+    (1006, 6),
+    (1007, 1),
+    (1007, 3),
+    (1008, 1),
+    (1008, 4),
+    (1009, 3),
+    (1009, 6),
+    (1010, 1),
+    (1010, 4),
+    (1011, 3),
+    (1011, 6),
+    (1012, 1),
+    (1012, 4),
+    (1013, 1),
+    (1013, 6);
 
 
 

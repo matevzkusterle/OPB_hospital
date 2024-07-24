@@ -18,7 +18,8 @@ class AuthService:
 
     def obstaja_uporabnik(self, uporabnikk: str) -> bool:
         try:
-            user = self.repo.dobi_gen_id(uporabnik, uporabnikk, id_col="username")
+            user = self.repo.dobi_gen_id(uporabnik, 
+                                         uporabnikk, id_col="username")
             return True
         except:
             return False
@@ -32,7 +33,9 @@ class AuthService:
         
 
 
-    def prijavi_uporabnika(self, uporabnikk : str, geslo: str) -> uporabnikDto | bool :
+    def prijavi_uporabnika(self, 
+                           uporabnikk : str,
+                           geslo: str) -> uporabnikDto | bool :
 
         # Najprej dobimo uporabnika iz baze
         user = self.repo.dobi_gen_id(uporabnik, uporabnikk, id_col="username")
@@ -60,7 +63,14 @@ class AuthService:
         return False
     
 
-    def dodaj_uporabnika(self, uporabnikk: str, id: int, rola: str, ime: str, priimek: str, geslo: str) -> uporabnik:
+    def dodaj_uporabnika(self,
+                         uporabnikk: str,
+                         id_zdravnik: int,
+                         id_pacient: int,
+                         rola: str,
+                         ime: str,
+                         priimek: str,
+                         geslo: str) -> uporabnik:
 
         # zgradimo hash za geslo od uporabnika
 
@@ -77,7 +87,8 @@ class AuthService:
 
         uporabnikk = uporabnik(
             username=uporabnikk,
-            id=id,
+            id_zdravnik=id_zdravnik,
+            id_pacient=id_pacient,
             role=rola,
             ime=ime,
             priimek=priimek,
@@ -87,4 +98,7 @@ class AuthService:
 
         self.repo.dodaj_gen(uporabnikk, serial_col=None)
 
-        return uporabnik(username=uporabnikk, id=id, role=rola, ime=ime, priimek=priimek)
+        return uporabnik(username=uporabnikk,
+                         id_zdravnik=id_zdravnik,
+                         id_pacient= id_pacient,
+                         role=rola, ime=ime, priimek=priimek)

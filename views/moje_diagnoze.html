@@ -1,53 +1,42 @@
 %rebase('osnova.html', naslov='Seznam pacientov z diagnozami', stran='pacienti')
 
-<div >
-    <div style="display: flex;">
+<div>
+  <div style="display: flex;">
     <div style="flex:1;">
-      <table 
-      data-toggle="table" 
-      data-sticky-header="true"
-      data-search="true"
-      data-show-columns="true" 
-      data-sortable="true"
-      id="izdelki" 
-      data-height="500" >
+      <table data-toggle="table" data-sticky-header="true" data-search="true" data-show-columns="true"
+        data-sortable="true" id="izdelki" data-height="500">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Ime</th>
-                <th>Priimek</th>
-                <th>szz</th>
-                <th>koda</th>
-                <th>detajli</th>
-                <th>aktivnost</th>  
-             </tr>
+          <tr>
+            <th>Id</th>
+            <th>Ime</th>
+            <th>Priimek</th>
+            <th>szz</th>
+            <th>koda</th>
+            <th>detajli</th>
+            <th>aktivnost</th>
+          </tr>
         </thead>
-     
-      %for pacientt in pacienti:
+
+        %for pacientt in pacienti:
         <tr>
-           <td>{{pacientt.id}}</td>
-           <td>{{pacientt.ime}}</td>
-           <td>{{pacientt.priimek}}</td>
-           <td>{{pacientt.szz}}</td>
-           <td>{{pacientt.koda}}</td>
-           <td>{{pacientt.detajli}}</td>
-           <td>{{pacientt.aktivnost}}</td>
-           <!-- <td>
+          <td>{{pacientt.id}}</td>
+          <td>{{pacientt.ime}}</td>
+          <td>{{pacientt.priimek}}</td>
+          <td>{{pacientt.szz}}</td>
+          <td>{{pacientt.koda}}</td>
+          <td>{{pacientt.detajli}}</td>
+          <td>{{pacientt.aktivnost}}</td>
+          <!-- <td>
             <a href="url('izbrisi_izdelek', id=izdelek.id)"> izbriši</a>
            </td> -->
-     
+
         </tr>
-      %end
+        %end
       </table>
 
 
     </div>
 
-    </div>
-   
+  </div>
+
 </div>
-
-
-  
-
-  

@@ -350,7 +350,7 @@ class Repo:
         self.cur.execute(
             """
             SELECT i.id, i.ime, i.priimek, i.szz, k.koda, k.detajli, k.aktivnost FROM pacient i
-            left join diagnoze k on i.id = k.pacient
+            left join diagnoza k on i.id = k.pacient
             """)
         
         pacientt = self.cur.fetchall()
@@ -399,15 +399,15 @@ class Repo:
     def uporabnik(self) -> List[uporabnik]:
         self.cur.execute(
             """
-            SELECT i.username, i.id, i.role, i.ime, i.priimek, i.password_hash, i.last_login FROM uporabnik i
+            SELECT i.username, i.id_zdravnik, i.id_pacient, i.role, i.ime, i.priimek, i.password_hash, i.last_login FROM uporabnik i
             """)
         
         uporabnikk = self.cur.fetchall()
 
         if uporabnikk is None:
             return []
-        return [uporabnik(username, id, role, ime, priimek, password_hash, last_login) for \
-                 (username, id, role, ime, priimek, password_hash, last_login) in uporabnikk]
+        return [uporabnik(username, id_zdravnik, id_pacient, role, ime, priimek, password_hash, last_login) for \
+                 (username, id_zdravnik, id_pacient, role, ime, priimek, password_hash, last_login) in uporabnikk]
     
     def diagnoza(self) -> List[diagnoza]:
         self.cur.execute(
