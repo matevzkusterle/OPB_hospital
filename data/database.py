@@ -120,7 +120,8 @@ class Repo:
     def dodaj_gen(self, typ: T, serial_col="id", auto_commit=True):
         """
         Generična metoda, ki v bazo doda entiteto/objekt. V kolikor imamo definiram serial
-        stolpec, objektu to vrednost tudi nastavimo.
+        stolpec, objektu to vrednost tudi nastavimo. Imena stolpev v bazi morajo biti enaka
+        imenom atributov objekta v modeli.py.
         """
 
         tbl_name = type(typ).__name__

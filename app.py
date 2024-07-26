@@ -73,7 +73,7 @@ def index():
     """
     Začetna stran.
     """
-    return template_user('dobrodosli.html', napaka=None)
+    return template('dobrodosli.html', napaka=None)
 
 @get('/prijava')
 def prijava():
@@ -246,7 +246,7 @@ def prikazi_zdravnike():
 
     zdravniki = repo.zdravnik()
 
-    return template_user('prikazi_zdravnike.html', zdravniki = zdravniki)
+    return template('prikazi_zdravnike.html', zdravniki = zdravniki, napaka = None)
 
 
 
@@ -255,14 +255,14 @@ def prikazi_paciente():
 
     pacienti = repo.pacientDiag()
 
-    return template_user('prikazi_paciente.html', pacienti = pacienti)
+    return template('prikazi_paciente.html', pacienti = pacienti, napaka = None)
 
 @get('/admin/prikazi_uporabnike')
 def prikazi_uporabnike():
 
     uporabniki = repo.uporabnik()
 
-    return template_user('prikazi_uporabnike.html', uporabniki = uporabniki)
+    return template('prikazi_uporabnike.html', uporabniki = uporabniki, napaka = None)
 
 ##----------------FUNCTIONS FOR ZDRAVNIK-----------------##
 @get('/pogled_zdravnik')
@@ -280,7 +280,7 @@ def prikazi_moje_paciente():
     pacienti = repo.izberi_paciente_zdravnika(zdravnik.ime, zdravnik.priimek)
     pacienti_diag = repo.pacient_to_pacientDiag(pacienti)
     
-    return template_user('prikazi_moje_paciente.html', pacienti_diag=pacienti_diag)
+    return template('prikazi_moje_paciente.html', pacienti_diag=pacienti_diag, napaka = None)
 
 @get('/pogled_zdravnik/dodaj_pacienta')
 @zdravnik_required
@@ -317,7 +317,7 @@ def dodaj_pacienta_post():
         repo.dodaj_gen(pacientt)
         return template('dodajanje_uspesno.html', napaka="Pacient uspešno dodan.")
     except Exception as e:
-        return template('dodaj_pacienta.html', rola=rola, napaka="Napaka pri dodajanju pacienta: {}".format(str(e)))
+        return template('dodaj_pacienta.html', rola=rola, napaka=f"Napaka pri dodajanju pacienta: {e}")
 
 #diagnozo se lahko postavi le pacientu, ki je v bazi, torej v tabeli pacient
 #Torej, ko zdravnik dobi novega pacienta, ga najprej doda v bazo pacientov, \
@@ -328,12 +328,12 @@ def dodaj_diagnozo():
     """
     Dodajanje diagnoze pacientu.
     """
-    # rola = request.get_cookie("rola")
+    print('tukaj')
+    rola = request.get_cookie("rola")
     # if rola != 'Zdravnik':
     #     return template('error.html', napaka="Nimate dovoljenja za ogled te strani!")
-
-    pacienti = repo.pacient()
-    return template_user('dodaj_diagnozo.html', pacienti=pacienti, napaka=None)
+    print('tukaj2')
+    return template('dodaj_diagnozo.html', rola=rola, napaka=None)
 
 @post('/pogled_zdravnik/dodaj_diagnozo')
 @zdravnik_required
@@ -341,30 +341,28 @@ def dodaj_diagnozo_post():
     """
     Processes the form submission to add a diagnosis to a patient.
     """
+    print('tukaj3')
     rola = request.get_cookie("rola")
     # if rola != 'Zdravnik':
     #     return template('error.html', napaka="Nimate dovoljenja za ogled te strani!")
-
+    print('tukaj4')
     szz = request.forms.get('szz')
     detajl = request.forms.get('diagnoza')
     koda = request.forms.get('koda')
-       
-
-    pacienti = repo.pacient()
+   
     if not szz or not detajl or not koda:
-        
-        return template_user('dodaj_diagnozo.html', rola =rola, pacienti=pacienti, napaka="Prosim, izpolnite vsa polja.")
+        return template('dodaj_diagnozo.html', rola=rola, napaka="Prosim, izpolnite vsa polja.")
     
     try:
-        pacientt = repo.dobi_gen_id(pacient, szz, id_col="szz")
+        pacientt = repo.dobi_gen_id(pacient, int(szz), id_col="szz")
         if pacientt:
-            diagnozaa = diagnoza(pacient=pacientt.id, detajl=detajl, koda=koda, aktivnost=True)
+            diagnozaa = diagnoza(id_pacient=pacientt.id, detajli=detajl, koda=koda, aktivnost=True)
             repo.dodaj_gen(diagnozaa)
-            return template_user('dodajanje_uspesno.html', napaka="Diagnoza uspešno dodana.")
+            return template('dodajanje_diagnoze_uspesno.html', napaka="Diagnoza uspešno dodana.")
         else:
-            return template_user('dodaj_diagnozo.html', rola=rola, napaka="Pacient, kateremu želite dodeliti diagnozo, ne obstaja.")
+            return template('dodaj_diagnozo.html', rola=rola, napaka="Pacient, kateremu želite dodeliti diagnozo, ne obstaja.")
     except Exception as e:
-        return template_user('dodaj_diagnozo.html', rola=rola, napaka="Napaka pri dodajanju diagnoze: {}".format(str(e)))
+        return template('dodaj_diagnozo.html', rola=rola, napaka=f"Napaka pri dodajanju diagnoze: {e}")
 
 @get('/pogled_zdravnik/moja_specializacija')
 @zdravnik_required
@@ -379,12 +377,12 @@ def moja_specializacija():
     zdravnik = repo.dobi_gen_id(uporabnik, uporabnikk, id_col="username")
     spec = repo.specializacija_zdravnik(zdravnik.ime, zdravnik.priimek)
 
-    return template_user('moja_specializacija.html', specializacija = spec, napaka=None)
+    return template('moja_specializacija.html', specializacija = spec, napaka=None)
 
 ##----------------FUNCTIONS FOR PACIENT-----------------##
 @get('/moje_diagnoze')
 def moje_diagnoze():
-    return template_user('moje_diagnoze.html', pacient =None )
+    return template('moje_diagnoze.html', pacient =None, napaka = None)
 
 @post('/moje_diagnoze')
 def moje_diagnoze():
@@ -393,9 +391,9 @@ def moje_diagnoze():
     print(a)
     if uporabnik:
         diagnoze = repo.dobi_diagnoze_pacienta(uporabnik)
-        return template_user('moje_diagnoze.html', pacient=uporabnik, diagnoze=diagnoze)
+        return template('moje_diagnoze.html', pacient=uporabnik, diagnoze=diagnoze, napaka=None)
     else:
-        return template_user('moje_diagnoze.html', pacient=None)
+        return template('moje_diagnoze.html', pacient=None, napaka="Niste prijavljeni.")
 # Glavni program
 
 

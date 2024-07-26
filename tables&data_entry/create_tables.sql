@@ -13,10 +13,11 @@ CREATE TABLE pacient (
 );
 
 CREATE TABLE diagnoza (
+    id SERIAL PRIMARY KEY,
     koda TEXT NOT NULL,
     detajli TEXT NOT NULL,
     aktivnost BOOLEAN NOT NULL,
-    pacient INTEGER NOT NULL REFERENCES pacient (id)
+    id_pacient INTEGER NOT NULL REFERENCES pacient (id)
 );
 
 CREATE TABLE zdravnik (

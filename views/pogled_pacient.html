@@ -1,16 +1,16 @@
-%rebase('osnova.html', naslov='Moj pogled', stran='pogled')
+%rebase('osnova.html', napaka = napaka, naslov='Moj pogled', stran='pogled')
 
 <form action="{{url('moje_diagnoze')}}" method="GET" style="width:60%">
-    <button type="submit" class="btn btn-primary">Prikaži moje diagnoze</button>
-  </form>
+  <button type="submit" class="btn btn-primary">Prikaži moje diagnoze</button>
+</form>
 
-  <form action="{{url('moji_podatki')}}" method="GET" style="width:60%">   
-    <button type="submit" class="btn btn-primary">Prikaži moje podatke</button>
-  </form>
+<form action="{{url('moji_podatki')}}" method="GET" style="width:60%">
+  <button type="submit" class="btn btn-primary">Prikaži moje podatke</button>
+</form>
 
-  <form action="{{url('odjava')}}" method="GET" style="width:60%">   
-    <button type="submit" class="btn btn-primary">Odjava</button>
-  </form>
-  %if napaka:
-  <p class="opozorilo">{{napaka}}</p>
+<form action="{{url('odjava')}}" method="GET" style="width:60%">
+  <button type="submit" class="btn btn-primary">Odjava</button>
+</form>
+%if napaka:
+<p class="opozorilo">{{napaka}}</p>
 %end

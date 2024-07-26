@@ -65,10 +65,11 @@ class pacientDiag:  #pacient skupaj z njegovo diagnozo
 @dataclass_json
 @dataclass
 class diagnoza:
+    id: int = field(default="")
+    id_pacient: int = field(default="")
     koda: str = field(default="")
     detajli: str = field(default="")
     aktivnost: str = field(default="")
-    id: int = field(default="")
 
 
 @dataclass_json

@@ -8,7 +8,8 @@
         <thead>
           <tr>
             <th>Uporabniško ime</th>
-            <th>Id</th>
+            <th>Id zdravnika</th>
+            <th>Id pacienta</th>
             <th>Role</th>
             <th>Ime</th>
             <th>Priimek</th>
@@ -20,7 +21,8 @@
         %for uporabnik in uporabniki:
         <tr>
           <td>{{uporabnik.username}}</td>
-          <td>{{uporabnik.id}}</td>
+          <td>{{uporabnik.id_zdravnik}}</td>
+          <td>{{uporabnik.id_pacient}}</td>
           <td>{{uporabnik.role}}</td>
           <td>{{uporabnik.ime}}</td>
           <td>{{uporabnik.priimek}}</td>
