@@ -17,7 +17,8 @@ CREATE TABLE diagnoza (
     koda TEXT NOT NULL,
     detajli TEXT NOT NULL,
     aktivnost BOOLEAN NOT NULL,
-    id_pacient INTEGER NOT NULL REFERENCES pacient (id)
+    id_pacient INTEGER NOT NULL REFERENCES pacient (id),
+    id_zdravnik INTEGER NOT NULL REFERENCES zdravnik (id)
 );
 
 CREATE TABLE zdravnik (

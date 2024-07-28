@@ -189,13 +189,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '10-ABCD',
         'Prehlad',
         TRUE,
-        1001
+        1001,
+        3
     );
 
 INSERT INTO
@@ -203,13 +205,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '45-EFGH',
         'Zvit glezenj',
         FALSE,
-        1001
+        1001,
+        1
     );
 
 -- Diagnoze za pacienta 1002
@@ -218,13 +222,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '27-IJKL',
         'Gripa',
         TRUE,
-        1002
+        1002,
+        4
     );
 
 INSERT INTO
@@ -232,13 +238,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '88-MNOP',
         'Povisan krvni tlak',
         FALSE,
-        1002
+        1002,
+        2
     );
 
 -- Diagnoze za pacienta 1003
@@ -247,13 +255,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '62-QRST',
         'Motnje spanja',
         TRUE,
-        1003
+        1003,
+        5
     );
 
 -- Diagnoze za pacienta 1004
@@ -262,13 +272,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '53-UVWX',
         'Prebavne tezave',
         TRUE,
-        1004
+        1004,
+        1
     );
 
 INSERT INTO
@@ -276,13 +288,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '71-YZAB',
         'Migrena',
         FALSE,
-        1004
+        1004,
+        6
     );
 
 INSERT INTO
@@ -290,13 +304,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '94-CDEF',
         'Sladkorna bolezen',
         TRUE,
-        1004
+        1004,
+        3
     );
 
 -- Diagnoze za pacienta 1005
@@ -305,13 +321,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '09-GHIJ',
         'Hrupno dihanje',
         TRUE,
-        1005
+        1005,
+        2
     );
 
 INSERT INTO
@@ -319,13 +337,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '36-KLMN',
         'Bolecine v hrbtu',
         FALSE,
-        1005
+        1005,
+        4
     );
 
 -- Diagnoze za pacienta 1006
@@ -334,13 +354,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '82-OPQR',
         'Anksioznost',
         FALSE,
-        1006
+        1006,
+        5
     );
 
 -- Diagnoze za pacienta 1007
@@ -349,13 +371,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '17-STUV',
         'Astma',
         TRUE,
-        1007
+        1007,
+        6
     );
 
 -- Diagnoze za pacienta 1008
@@ -364,13 +388,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '49-WXYZ',
         'Okuzba secil',
         FALSE,
-        1008
+        1008,
+        1
     );
 
 -- Diagnoze za pacienta 1009
@@ -379,13 +405,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '76-1234',
         'Bolecine v trebuhu',
         TRUE,
-        1009
+        1009,
+        4
     );
 
 -- Diagnoze za pacienta 1010
@@ -394,13 +422,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '28-5678',
         'Tezave s scitnico',
         FALSE,
-        1010
+        1010,
+        3
     );
 
 INSERT INTO
@@ -408,13 +438,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '51-90AB',
         'Tezave s spanjem',
         TRUE,
-        1010
+        1010,
+        2
     );
 
 -- Diagnoze za pacienta 1011
@@ -423,13 +455,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '64-CDEF',
         'Depresija',
         TRUE,
-        1011
+        1011,
+        5
     );
 
 -- Diagnoze za pacienta 1012
@@ -438,13 +472,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '93-GHIJ',
         'Glavobol',
         FALSE,
-        1012
+        1012,
+        4
     );
 
 INSERT INTO
@@ -452,13 +488,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '12-KLMN',
         'Tezave s sluhom',
         TRUE,
-        1012
+        1012,
+        6
     );
 
 -- Diagnoze za pacienta 1013
@@ -467,13 +505,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '39-OPQR',
         'Bolecine v sklepih',
         FALSE,
-        1013
+        1013,
+        3
     );
 
 INSERT INTO
@@ -481,13 +521,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '85-STUV',
         'Povisana telesna temperatura',
         TRUE,
-        1013
+        1013,
+        1
     );
 
 INSERT INTO
@@ -495,13 +537,15 @@ INSERT INTO
         koda,
         detajli,
         aktivnost,
-        id_pacient
+        id_pacient,
+        id_zdravnik
     )
 VALUES (
         '56-WXYZ',
         'Tezave z vidom',
         TRUE,
-        1013
+        1013,
+        2
     );
 
 -- Vnosi v tabelo bridge
