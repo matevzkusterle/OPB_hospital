@@ -5,7 +5,8 @@ psycopg2.extensions.register_type(psycopg2.extensions.UNICODE) # se znebimo prob
 import os
 from typing import List, TypeVar, Type, Callable, Any
 from data.modeli import (
-    pacient, pacientDiag, zdravnik, uporabnikDto, uporabnik, diagnoza, specializacije
+    pacient, pacientDiag, zdravnik, uporabnikDto, uporabnik, diagnoza,
+    diagnoza_pacient, specializacije
 )
 from pandas import DataFrame
 from re import sub
@@ -91,7 +92,7 @@ class Repo:
             SELECT pacient.* FROM bridge
             JOIN zdravnik ON bridge.id_zdravnik = zdravnik.id
             JOIN pacient ON bridge.id_pacient = pacient.id
-            WHERE bridge.povezava = True AND zdravnik.ime = %s AND zdravnik.priimek = %s
+            WHERE zdravnik.ime = %s AND zdravnik.priimek = %s
             """,
             (ime, priimek)
             )
@@ -326,9 +327,7 @@ class Repo:
         # izvedemo ukaz
         self.cur.execute(sql_cmd)
         self.conn.commit()
-
-    
-    #DO TU PREKOPIRANO, OD TU SEM DOPISAL SAM
+ 
 
 
     def zdravnik(self) -> List[zdravnik]:
@@ -370,7 +369,7 @@ class Repo:
         self.cur.execute(
             f"""
             SELECT i.id, i.ime, i.priimek, i.szz, k.koda, k.detajli, k.aktivnost FROM pacient i
-            LEFT JOIN diagnoza k ON i.id = k.pacient
+            LEFT JOIN diagnoza k ON i.id = k.id_pacient
             WHERE i.id IN ({pacient_ids_str})
             """
         )
@@ -397,6 +396,21 @@ class Repo:
             return []
         return [pacient(id, ime, priimek, szz) for (id, ime, priimek, szz) in pacientt]
     
+    def pacient_dobi_info(self, id: int) -> List[pacient]:
+        self.cur.execute(
+            """
+            SELECT i.id, i.szz, i.ime, i.priimek  FROM pacient i
+            WHERE i.id = %s
+            """
+            , (id,))
+        
+        pacientt = self.cur.fetchall()
+
+        if pacientt is None:
+            return []
+        return [pacient(id, ime, priimek, szz) for (id, ime, priimek, szz) in pacientt]
+
+    
     def uporabnik(self) -> List[uporabnik]:
         self.cur.execute(
             """
@@ -410,18 +424,21 @@ class Repo:
         return [uporabnik(username, id_zdravnik, id_pacient, role, ime, priimek, password_hash, last_login) for \
                  (username, id_zdravnik, id_pacient, role, ime, priimek, password_hash, last_login) in uporabnikk]
     
-    def diagnoza(self) -> List[diagnoza]:
+    def prikazi_diagnoze_pacienta(self, id: int) -> List[diagnoza]:
         self.cur.execute(
             """
-            SELECT i.koda, i.detajli, i.aktivnost FROM diagnoza i
-            """)
+            SELECT i.koda, i.detajli, i.aktivnost, k.ime, k.priimek FROM diagnoza i
+            LEFT JOIN zdravnik k ON i.id_zdravnik = k.id
+            WHERE i.id_pacient = %s
+            """
+            , (id,))
         
         diagnoze = self.cur.fetchall()
 
         if diagnoze is None:
             return []
-        return [diagnoza(koda, detajli, aktivnost) for \
-                 (koda, detajli, aktivnost) in diagnoze]
+        return [diagnoza_pacient(koda, detajli, aktivnost, ime, priimek) for \
+                 (koda, detajli, aktivnost, ime, priimek) in diagnoze]
     
     def specializacija_zdravnik(self, ime: str, priimek: str) -> specializacije:
         self.cur.execute(

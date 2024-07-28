@@ -590,3 +590,5 @@ UPDATE uporabnik SET role = 'admin' WHERE username = 'admin';
 
 --izbriši vse uporabnike iz tabele uporabnik
 DELETE FROM uporabnik;
+
+delete from uporabnik WHERE username = 'kati';

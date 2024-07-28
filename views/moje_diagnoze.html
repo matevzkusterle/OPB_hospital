@@ -1,4 +1,4 @@
-%rebase('osnova.html', napaka = napaka, naslov='Seznam pacientov z diagnozami', stran='pacienti')
+%rebase('osnova.html', napaka = napaka, naslov='Moje diagnoze', stran='moje diagnoze')
 
 <div>
   <div style="display: flex;">
@@ -7,25 +7,21 @@
         data-sortable="true" id="izdelki" data-height="500">
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Ime</th>
-            <th>Priimek</th>
-            <th>szz</th>
-            <th>koda</th>
-            <th>detajli</th>
-            <th>aktivnost</th>
+            <th>Detajli</th>
+            <th>Koda</th>
+            <th>Aktivnost</th>
+            <th>Zdravnik</th>
+
           </tr>
         </thead>
 
-        %for pacientt in pacienti:
+        %for diagnozaa in diagnoze:
         <tr>
-          <td>{{pacientt.id}}</td>
-          <td>{{pacientt.ime}}</td>
-          <td>{{pacientt.priimek}}</td>
-          <td>{{pacientt.szz}}</td>
-          <td>{{pacientt.koda}}</td>
-          <td>{{pacientt.detajli}}</td>
-          <td>{{pacientt.aktivnost}}</td>
+          <td>{{diagnozaa.detajli}}</td>
+          <td>{{diagnozaa.koda}}</td>
+          <td>{{diagnozaa.aktivnost}}</td>
+          <td>{{diagnozaa.ime}} {{diagnozaa.priimek}}</td>
+
           <!-- <td>
             <a href="url('izbrisi_izdelek', id=izdelek.id)"> izbriši</a>
            </td> -->

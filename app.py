@@ -328,11 +328,9 @@ def dodaj_diagnozo():
     """
     Dodajanje diagnoze pacientu.
     """
-    print('tukaj')
     rola = request.get_cookie("rola")
     # if rola != 'Zdravnik':
     #     return template('error.html', napaka="Nimate dovoljenja za ogled te strani!")
-    print('tukaj2')
     return template('dodaj_diagnozo.html', rola=rola, napaka=None)
 
 @post('/pogled_zdravnik/dodaj_diagnozo')
@@ -341,14 +339,16 @@ def dodaj_diagnozo_post():
     """
     Processes the form submission to add a diagnosis to a patient.
     """
-    print('tukaj3')
     rola = request.get_cookie("rola")
     # if rola != 'Zdravnik':
     #     return template('error.html', napaka="Nimate dovoljenja za ogled te strani!")
-    print('tukaj4')
     szz = request.forms.get('szz')
     detajl = request.forms.get('diagnoza')
     koda = request.forms.get('koda')
+
+    uporabnikk = request.get_cookie("uporabnik")
+    zdravnikk = repo.dobi_gen_id(uporabnik, uporabnikk, id_col="username")
+    zdravnik_id = zdravnikk.id_zdravnik
    
     if not szz or not detajl or not koda:
         return template('dodaj_diagnozo.html', rola=rola, napaka="Prosim, izpolnite vsa polja.")
@@ -356,7 +356,7 @@ def dodaj_diagnozo_post():
     try:
         pacientt = repo.dobi_gen_id(pacient, int(szz), id_col="szz")
         if pacientt:
-            diagnozaa = diagnoza(id_pacient=pacientt.id, detajli=detajl, koda=koda, aktivnost=True)
+            diagnozaa = diagnoza(id_pacient=pacientt.id, id_zdravnik= zdravnik_id, detajli=detajl, koda=koda, aktivnost=True)
             repo.dodaj_gen(diagnozaa)
             return template('dodajanje_diagnoze_uspesno.html', napaka="Diagnoza uspešno dodana.")
         else:
@@ -380,20 +380,27 @@ def moja_specializacija():
     return template('moja_specializacija.html', specializacija = spec, napaka=None)
 
 ##----------------FUNCTIONS FOR PACIENT-----------------##
-@get('/moje_diagnoze')
-def moje_diagnoze():
-    return template('moje_diagnoze.html', pacient =None, napaka = None)
+@get('/pogled_pacient')
+@pacient_required
+def pogled_pacient():
+    return template('pogled_pacient.html', napaka = None)
 
-@post('/moje_diagnoze')
+@get('/pogled_pacient/moje_diagnoze')
+@pacient_required
 def moje_diagnoze():
-    uporabnik = request.get_cookie("uporabnik")
-    a = repo.uporabnik()
-    print(a)
-    if uporabnik:
-        diagnoze = repo.dobi_diagnoze_pacienta(uporabnik)
-        return template('moje_diagnoze.html', pacient=uporabnik, diagnoze=diagnoze, napaka=None)
-    else:
-        return template('moje_diagnoze.html', pacient=None, napaka="Niste prijavljeni.")
+    uporabnikk = repo.dobi_gen_id(uporabnik, request.get_cookie("uporabnik"), id_col="username")
+    diagnoze = repo.prikazi_diagnoze_pacienta(uporabnikk.id_pacient)
+    return template('moje_diagnoze.html', diagnoze=diagnoze, napaka=None)
+
+@get('/pogled_pacient/moji_podatki')
+@pacient_required
+def moji_podatki():
+    uporabnikk = repo.dobi_gen_id(uporabnik, request.get_cookie("uporabnik"), id_col="username")
+    pacientt = repo.pacient_dobi_info(uporabnikk.id_pacient)
+    return template('moji_podatki', pacientt = pacientt, napaka = None)
+
+
+
 # Glavni program
 
 
