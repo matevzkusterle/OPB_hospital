@@ -6,7 +6,7 @@ import os
 from typing import List, TypeVar, Type, Callable, Any
 from data.modeli import (
     pacient, pacientDiag, zdravnik, uporabnikDto, uporabnik, diagnoza,
-    diagnoza_pacient, specializacije
+    diagnoza_pacient, specializacije, bridge
 )
 from pandas import DataFrame
 from re import sub
@@ -26,7 +26,12 @@ T = TypeVar(
     pacient,
     pacientDiag,
     zdravnik,    
-    uporabnik
+    uporabnik,
+    diagnoza,
+    diagnoza_pacient,
+    specializacije,
+    bridge
+
     )
 
 class Repo:
@@ -350,7 +355,7 @@ class Repo:
         self.cur.execute(
             """
             SELECT i.id, i.ime, i.priimek, i.szz, k.koda, k.detajli, k.aktivnost FROM pacient i
-            left join diagnoza k on i.id = k.pacient
+            left join diagnoza k on i.id = k.id_pacient
             """)
         
         pacientt = self.cur.fetchall()
@@ -456,3 +461,4 @@ class Repo:
             raise ValueError("Zdravnik not found")
         
         return specializacije(zdravnik[0], zdravnik[1], zdravnik[2])
+

@@ -584,11 +584,24 @@ VALUES (1001, 1),
 
 --naslednja dva ukaza naredimo da imamo admina v bazi
 --sicer admina najprej registriramo kot zdravnika, nato pa mu spremenimo role v admin
-INSERT INTO zdravnik VALUES (666, 'admin', 'admin', -1);
+-- INSERT INTO zdravnik VALUES (666, 'admin', 'admin', -1);
 
-UPDATE uporabnik SET role = 'admin' WHERE username = 'admin';
+-- UPDATE uporabnik SET role = 'admin' WHERE username = 'admin';
 
---izbriši vse uporabnike iz tabele uporabnik
-DELETE FROM uporabnik;
+-- --izbriši vse uporabnike iz tabele uporabnik
+-- DELETE FROM uporabnik;
 
-delete from uporabnik WHERE username = 'kati';
+-- delete from uporabnik WHERE username = 'kati';
+
+-- --DELETE EVERY TABLE
+-- DROP TABLE IF EXISTS specializacije;
+
+-- DROP TABLE IF EXISTS zdravnik;
+
+-- DROP TABLE IF EXISTS pacient;
+
+-- DROP TABLE IF EXISTS diagnoza;
+
+-- DROP TABLE IF EXISTS bridge;
+
+-- DROP TABLE IF EXISTS uporabnik;

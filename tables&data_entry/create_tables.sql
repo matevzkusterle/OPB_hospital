@@ -12,6 +12,13 @@ CREATE TABLE pacient (
     szz BIGINT NOT NULL --CHECK (szz >= 1000000000 AND szz <= 9999999999) --szz = 10-mestna stevilka zdravstvenega zavarovanja
 );
 
+CREATE TABLE zdravnik (
+    id SERIAL PRIMARY KEY,
+    ime TEXT NOT NULL,
+    priimek TEXT NOT NULL,
+    specializacija INTEGER REFERENCES specializacije (id)
+);
+
 CREATE TABLE diagnoza (
     id SERIAL PRIMARY KEY,
     koda TEXT NOT NULL,
@@ -19,13 +26,6 @@ CREATE TABLE diagnoza (
     aktivnost BOOLEAN NOT NULL,
     id_pacient INTEGER NOT NULL REFERENCES pacient (id),
     id_zdravnik INTEGER NOT NULL REFERENCES zdravnik (id)
-);
-
-CREATE TABLE zdravnik (
-    id SERIAL PRIMARY KEY,
-    ime TEXT NOT NULL,
-    priimek TEXT NOT NULL,
-    specializacija INTEGER REFERENCES specializacije (id)
 );
 
 CREATE TABLE bridge (

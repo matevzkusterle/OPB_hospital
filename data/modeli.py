@@ -87,3 +87,9 @@ class specializacije:
     ime: str = field(default="")
     priimek: str = field(default="")
     opis: str = field(default="")
+
+@dataclass_json
+@dataclass
+class bridge:
+    id_zdravnik: int = field(default="")
+    id_pacient: int = field(default="")

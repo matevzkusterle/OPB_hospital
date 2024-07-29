@@ -315,6 +315,9 @@ def dodaj_pacienta_post():
     try:
         pacientt = pacient(ime=ime, priimek=priimek, szz=szz)
         repo.dodaj_gen(pacientt)
+        zdravnikk = repo.dobi_gen_id(uporabnik, request.get_cookie("uporabnik"), id_col="username")
+        bridgee=bridge(id_pacient=pacientt.id, id_zdravnik=zdravnikk.id_zdravnik)
+        repo.dodaj_gen(bridgee, serial_col=None)
         return template('dodajanje_uspesno.html', napaka="Pacient uspešno dodan.")
     except Exception as e:
         return template('dodaj_pacienta.html', rola=rola, napaka=f"Napaka pri dodajanju pacienta: {e}")
