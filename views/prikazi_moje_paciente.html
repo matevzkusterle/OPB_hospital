@@ -23,18 +23,22 @@
           <td>{{pacientt.szz}}</td>
           <td>{{pacientt.koda}}</td>
           <td>{{pacientt.detajli}}</td>
-          <td>{{pacientt.aktivnost}}</td>
-          <!-- <td>
-            <a href="url('izbrisi_izdelek', id=izdelek.id)"> izbriši</a>
-           </td> -->
+          <td>
+            <form action="/update_aktivnost" method="post">
+              <input type="hidden" name="id" value="{{pacientt.id_diagnoza}}">
+              <select name="aktivnost">
+                <option value="true" {{'selected' if pacientt.aktivnost else '' }}>Aktivna</option>
+                <option value="false" {{'selected' if not pacientt.aktivnost else '' }}>Neaktivna</option>
+              </select>
+              <button type="submit">Posodobi</button>
+            </form>
+          </td>
 
+          </td>
         </tr>
         %end
+
       </table>
-
-
     </div>
-
   </div>
-
 </div>

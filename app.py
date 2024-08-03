@@ -211,13 +211,10 @@ def prijava_next():
         response.set_cookie("rola", prijava.role)
         if prijava.role=='admin':
             return redirect(url('admin'))
-            #return template('admin.html', napaka = None, rola=prijava.role)
         if prijava.role=='Zdravnik':
             return redirect(url('pogled_zdravnik'))
-            #return template('pogled_zdravnik.html', napaka = None, rola=prijava.role)
         if prijava.role=='Pacient':
             return redirect(url('pogled_pacient'))
-            #return template('pogled_pacient.html', napaka = None, rola=prijava.role)
         return template('prijava_next.html', uporabnik=username, rola=prijava.role, napaka = 'Neuspešna prijava. Napačno geslo ali uporabniško ime.')
         
     else:

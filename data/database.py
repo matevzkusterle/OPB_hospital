@@ -6,7 +6,7 @@ import os
 from typing import List, TypeVar, Type, Callable, Any
 from data.modeli import (
     pacient, pacientDiag, zdravnik, uporabnikDto, uporabnik, diagnoza,
-    diagnoza_pacient, specializacije, bridge
+    diagnoza_pacient, specializacije, bridge, spec_zdravnik
 )
 from pandas import DataFrame
 from re import sub
@@ -429,6 +429,19 @@ class Repo:
         return [uporabnik(username, id_zdravnik, id_pacient, role, ime, priimek, password_hash, last_login) for \
                  (username, id_zdravnik, id_pacient, role, ime, priimek, password_hash, last_login) in uporabnikk]
     
+    def specializacije(self) -> List[specializacije]:
+        self.cur.execute(
+            """
+            SELECT i.id, i.opis FROM specializacije i
+            """)
+        
+        specializacijee = self.cur.fetchall()
+
+        if specializacijee is None:
+            return []
+        return [specializacije(id, opis) for \
+                 (id, opis) in specializacijee]
+    
     def prikazi_diagnoze_pacienta(self, id: int) -> List[diagnoza]:
         self.cur.execute(
             """
@@ -445,7 +458,7 @@ class Repo:
         return [diagnoza_pacient(koda, detajli, aktivnost, ime, priimek) for \
                  (koda, detajli, aktivnost, ime, priimek) in diagnoze]
     
-    def specializacija_zdravnik(self, ime: str, priimek: str) -> specializacije:
+    def specializacija_zdravnik(self, ime: str, priimek: str) -> spec_zdravnik:
         self.cur.execute(
             """
             SELECT i.ime, i.priimek, k.opis FROM zdravnik i
@@ -460,5 +473,5 @@ class Repo:
         if zdravnik is None:
             raise ValueError("Zdravnik not found")
         
-        return specializacije(zdravnik[0], zdravnik[1], zdravnik[2])
+        return spec_zdravnik(zdravnik[0], zdravnik[1], zdravnik[2])
 

@@ -7,7 +7,6 @@
         data-sortable="true" id="izdelki" data-height="500">
         <thead>
           <tr>
-            <th>Id</th>
             <th>Ime</th>
             <th>Priimek</th>
             <th>szz</th>
@@ -19,17 +18,12 @@
 
         %for pacientt in pacienti:
         <tr>
-          <td>{{pacientt.id}}</td>
           <td>{{pacientt.ime}}</td>
           <td>{{pacientt.priimek}}</td>
           <td>{{pacientt.szz}}</td>
           <td>{{pacientt.koda}}</td>
           <td>{{pacientt.detajli}}</td>
           <td>{{pacientt.aktivnost}}</td>
-          <!-- <td>
-            <a href="url('izbrisi_izdelek', id=izdelek.id)"> izbriši</a>
-           </td> -->
-
         </tr>
         %end
       </table>

@@ -1,18 +1,21 @@
 %rebase('osnova.html', naslov='admin', stran='admin')
 
 <form action="{{url('prikazi_zdravnike')}}" method="GET" style="width:60%">
-    <button type="submit" class="btn btn-primary">Prikaži zdravnike</button>
-  </form>
-  <form action="{{url('prikazi_paciente')}}" method="GET" style="width:60%">   
-    <button type="submit" class="btn btn-primary">Prikaži paciente</button>
-  </form>
-  <form action="{{url('prikazi_uporabnike')}}" method="GET" style="width:60%">   
-    <button type="submit" class="btn btn-primary">Prikaži uporabnike v bazi</button>
-  </form>
-  <form action="{{url('odjava')}}" method="GET" style="width:60%">   
-    <button type="submit" class="btn btn-primary">Odjava</button>
-  </form>
+  <button type="submit" class="btn btn-primary">Prikaži zdravnike</button>
+</form>
+<form action="{{url('prikazi_paciente')}}" method="GET" style="width:60%">
+  <button type="submit" class="btn btn-primary">Prikaži paciente</button>
+</form>
+<form action="{{url('prikazi_uporabnike')}}" method="GET" style="width:60%">
+  <button type="submit" class="btn btn-primary">Prikaži uporabnike v bazi</button>
+</form>
+<form action="{{url('dodaj_zdravnika')}}" method="GET" style="width:60%">
+  <button type="submit" class="btn btn-primary">Dodaj zdravnika</button>
+</form>
+<form action="{{url('odjava')}}" method="GET" style="width:60%">
+  <button type="submit" class="btn btn-primary">Odjava</button>
+</form>
 
-  %if napaka:
-  <p class="opozorilo">{{napaka}}</p>
+%if napaka:
+<p class="opozorilo">{{napaka}}</p>
 %end
