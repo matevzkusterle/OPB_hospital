@@ -211,10 +211,13 @@ def prijava_next():
         response.set_cookie("rola", prijava.role)
         if prijava.role=='admin':
             return redirect(url('admin'))
+            #return template('admin.html', napaka = None, rola=prijava.role)
         if prijava.role=='Zdravnik':
             return redirect(url('pogled_zdravnik'))
+            #return template('pogled_zdravnik.html', napaka = None, rola=prijava.role)
         if prijava.role=='Pacient':
             return redirect(url('pogled_pacient'))
+            #return template('pogled_pacient.html', napaka = None, rola=prijava.role)
         return template('prijava_next.html', uporabnik=username, rola=prijava.role, napaka = 'Neuspešna prijava. Napačno geslo ali uporabniško ime.')
         
     else:
@@ -238,10 +241,13 @@ def odjava():
 
 ##----------------FUNCTIONS FOR ADMIN-----------------##
 @get('/admin')
+@cookie_required
 def admin():
-    return template('admin.html', napaka = None)
+    rola = request.get_cookie("rola") 
+    return template('admin.html', rola = rola, napaka = None)
 
 @get('/admin/prikazi_zdravnike')
+@cookie_required
 def prikazi_zdravnike():
 
     zdravniki = repo.zdravnik()
@@ -251,13 +257,51 @@ def prikazi_zdravnike():
 
 
 @get('/admin/prikazi_paciente')
+@cookie_required
 def prikazi_paciente():
 
     pacienti = repo.pacientDiag()
 
     return template('prikazi_paciente.html', pacienti = pacienti, napaka = None)
 
+@get('/admin/dodaj_zdravnika')
+@cookie_required
+def dodaj_zdravnika():
+    """
+    Dodajanje zdravnika.
+    """
+    
+    rola = request.get_cookie("rola")
+    return template('dodaj_zdravnika.html', rola = rola, napaka = None)
+
+@post('/admin/dodaj_zdravnika')
+@cookie_required
+def dodaj_zdravnika_post():
+    """
+    Processes the form submission to add a doctor.
+    """
+    rola = request.get_cookie("rola") 
+    ime = request.forms.get('ime')
+    priimek = request.forms.get('priimek')
+    specializacija = request.forms.get('spec')
+
+    if not ime or not priimek or not specializacija:
+        return template('dodaj_zdravnika.html', rola = rola, napaka="Prosim, izpolnite vsa polja.")
+    existing_doctors = [(zdravnik.ime, zdravnik.priimek) for zdravnik in repo.zdravnik()]
+    if (ime, priimek) in existing_doctors:
+        return template('dodaj_zdravnika.html', rola = rola, napaka="Zdravnik s tem imenom in priimkom že obstaja.")
+    try:
+        existing_specializacije = [spec.opis for spec in repo.specializacije()]
+        if specializacija not in existing_specializacije:
+            repo.dodaj_gen(specializacije(opis=specializacija))
+        
+        repo.dodaj_gen(zdravnik(ime=ime, priimek=priimek, opis=specializacija))
+        return template('dodajanje_uspesno.html', napaka="Zdravnik uspešno dodan.")
+    except Exception as e:
+        return template('dodaj_zdravnika.html', napaka=f"Napaka pri dodajanju zdravnika: {e}")
+    
 @get('/admin/prikazi_uporabnike')
+@cookie_required
 def prikazi_uporabnike():
 
     uporabniki = repo.uporabnik()
