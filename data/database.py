@@ -79,19 +79,25 @@ class Repo:
     
         return typ.from_dict(d)
     
-    def dobi_gen_dvoje(self, typ: Type[T], ime: str, priimek: str, prvi = "id", drugi = "id") -> T:
+    def dobi_gen_dvoje(self, typ: Type[T], ime: str, priimek: str, 
+                       prvi = "id", drugi = "id") -> T:
         """
         Generična metoda, ki vrne dataclass objekt pridobljen iz baze na 
         podlagi dveh podatkov.
         """
         tbl_name = typ.__name__
-        sql_cmd = f'SELECT * FROM {tbl_name} WHERE {prvi} = %s AND {drugi} = %s';
+        sql_cmd = (
+            f'SELECT * FROM {tbl_name} WHERE {prvi} = %s AND {drugi} = %s'
+        )
         self.cur.execute(sql_cmd, (ime, priimek))
 
         d = self.cur.fetchone()
 
         if d is None:
-            raise Exception(f'Vrstica z imenom {ime} in priimkom {priimek} ne obstaja v {tbl_name}');
+            raise Exception(
+                f'Vrstica z imenom {ime} in priimkom {priimek} '
+                f'ne obstaja v {tbl_name}'
+            )
     
         return typ.from_dict(d)
     
@@ -115,10 +121,13 @@ class Repo:
         pacienti = self.cur.fetchall()
 
         if pacienti is None:
-            raise Exception(f'Vrstica z imenom {ime} in priimkom {priimek} ne obstaja v tabeli pacient');
-    
+            raise Exception(
+                f'Vrstica z imenom {ime} in priimkom {priimek} '
+                f'ne obstaja v tabeli pacient'
+            )    
         # return [pacient.from_dict(d) for d in pacienti]
-        return [pacient(id, ime, priimek, szz) for (id, ime, priimek, szz) in pacienti]
+        return [pacient(id, ime, priimek, szz) 
+            for (id, ime, priimek, szz) in pacienti]
     
     def izbrisi_gen(self,  typ: Type[T], id: int | str, id_col = "id"):
         """
@@ -147,7 +156,12 @@ class Repo:
         sql_cmd = f'''
         INSERT INTO {tbl_name} ({", ".join(cols)})
         VALUES
-        ({self.cur.mogrify(",".join(['%s']*len(cols)), [getattr(typ, c) for c in cols]).decode('utf-8')})
+        (
+            {self.cur.mogrify(
+            ",".join(['%s']*len(cols)),
+            [getattr(typ, c) for c in cols]
+            ).decode('utf-8')}
+        )
         '''
 
         if serial_col != None:
@@ -184,10 +198,14 @@ class Repo:
         sql_cmd = f'''
             INSERT INTO {tbl_name} ({", ".join(cols)})
             VALUES
-            {','.join(
-                self.cur.mogrify(f'({",".join(["%s"]*len(cols))})', i.to_dict()).decode('utf-8')
-                for i in typs
-                )}
+            {
+                ','.join(
+                    self.cur.mogrify(
+                        f'({",".join(["%s"] * len(cols))})', i.to_dict()
+                    ).decode('utf-8')
+                    for i in typs
+                )
+            }
         '''
 
         if serial_col != None:
@@ -258,7 +276,8 @@ class Repo:
         s = sub(r"(_|-)+", " ", s).title().replace(" ", "")
         return ''.join(s)     
 
-    def col_to_sql(self, col: str, col_type: str, use_camel_case=True, is_key=False):
+    def col_to_sql(self, col: str, col_type: str, 
+                   use_camel_case=True, is_key=False):
         """
         Funkcija ustvari del sql stavka za create table na podlagi njegovega 
         imena in (python) tipa. Dodatno ga lahko opremimo še z primary key 
@@ -310,8 +329,12 @@ class Repo:
         
         # dodamo ostale stolpce
         # tukaj bi stolpce lahko še dodatno filtrirali, preimenovali, itd.
-        cols_sql += ",\n".join([self.col_to_sql(col, str(typ), use_camel_case=use_camel_case) for col, typ in cols.items()])
-
+        cols_sql += ",\n".join(
+            [
+                self.col_to_sql(col, str(typ), use_camel_case=use_camel_case) 
+                for col, typ in cols.items()
+            ]
+        )
 
         # zgradimo končen sql stavek
         sql = f'''CREATE TABLE IF NOT EXISTS {name}(
@@ -342,10 +365,14 @@ class Repo:
         # ustvarimo sql stavek, ki vnese več vrstic naenkrat
         sql_cmd = f'''INSERT INTO {name} ({", ".join([f'"{c}"' for c in cols])})
             VALUES 
-            {','.join(
-                self.cur.mogrify(f'({",".join(["%s"]*len(cols))})', i).decode('utf-8')
+            {
+            ','.join(
+                self.cur.mogrify(
+                    f'({",".join(["%s"] * len(cols))})', i
+                ).decode('utf-8')
                 for i in df.itertuples(index=False)
-                )}
+            )
+            }
         '''
 
         # izvedemo ukaz
@@ -396,12 +423,18 @@ class Repo:
             return []
 
         return [
-            pacientDiag(id_diagnoza, id, ime, priimek, szz, koda, detajli, aktivnost) for \
-                (id_diagnoza, id, ime, priimek, szz, koda, detajli, aktivnost) in pacientt
+            pacientDiag(
+                 id_diagnoza, id, ime, priimek, szz, koda, detajli, aktivnost
+            ) for (
+                id_diagnoza, id, ime, priimek, szz, koda, detajli, aktivnost
+            ) in pacientt
                 ]
     
     
-    def pacient_to_pacientDiag(self, pacients: List[pacient]) -> List[pacientDiag]:
+    def pacient_to_pacientDiag(
+    self, 
+    pacients: List[pacient]
+    ) -> List[pacientDiag]:
         pacient_ids = [p.id for p in pacients]
         pacient_ids_str = ', '.join(str(id) for id in pacient_ids)
 
@@ -433,8 +466,11 @@ class Repo:
             return []
 
         return [
-            pacientDiag(id_diagnoza, id, ime, priimek, szz, koda, detajli, aktivnost) for \
-                (id_diagnoza, id, ime, priimek, szz, koda, detajli, aktivnost) in pacientDiags
+            pacientDiag(
+                id_diagnoza, id, ime, priimek, szz, koda, detajli, aktivnost
+            ) for (
+                id_diagnoza, id, ime, priimek, szz, koda, detajli, aktivnost
+            ) in pacientDiags
                 ]
     
     def pacient(self) -> List[pacient]:
@@ -449,7 +485,10 @@ class Repo:
 
         if pacientt is None:
             return []
-        return [pacient(id, ime, priimek, szz) for (id, ime, priimek, szz) in pacientt]
+        return [
+            pacient(id, ime, priimek, szz) 
+            for (id, ime, priimek, szz) in pacientt
+                ]
     
     def pacient_dobi_info(self, id: int) -> List[pacient]:
         self.cur.execute(
@@ -463,7 +502,10 @@ class Repo:
 
         if pacientt is None:
             return []
-        return [pacient(id, ime, priimek, szz) for (id, ime, priimek, szz) in pacientt]
+        return [
+            pacient(id, ime, priimek, szz) 
+            for (id, ime, priimek, szz) in pacientt
+                ]
 
     
     def uporabnik(self) -> List[uporabnik]:
@@ -486,8 +528,16 @@ class Repo:
 
         if uporabnikk is None:
             return []
-        return [uporabnik(username, id_zdravnik, id_pacient, role, ime, priimek, password_hash, last_login) for \
-                 (username, id_zdravnik, id_pacient, role, ime, priimek, password_hash, last_login) in uporabnikk]
+        return [
+            uporabnik(
+                username, id_zdravnik, id_pacient, role, ime, 
+                priimek, password_hash, last_login
+            ) 
+            for (
+                username, id_zdravnik, id_pacient, role, ime, 
+                priimek, password_hash, last_login
+            ) in uporabnikk
+                    ]
     
     def specializacije(self) -> List[specializacije]:
         self.cur.execute(
