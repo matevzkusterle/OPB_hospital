@@ -1,22 +1,17 @@
 %rebase('osnova.html', napaka=napaka, naslov='Moj pogled', stran='pogled')
 
 <div class="container">
-
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <form action="{{url('moje_diagnoze')}}" method="GET" style="width: 60%; margin-bottom: 20px;">
-      <button type="submit" class="btn btn-primary btn-custom-green">Prikaži moje diagnoze</button>
+  <div class="form-container">
+    <form action="{{url('moje_diagnoze')}}" method="GET">
+      <button type="submit" class="button btn-custom-green btn-block">Prikaži moje diagnoze</button>
     </form>
 
-    <form action="{{url('moji_podatki')}}" method="GET" style="width: 60%; margin-bottom: 20px;">
-      <button type="submit" class="btn btn-primary btn-custom-green">Prikaži moje podatke</button>
+    <form action="{{url('moji_podatki')}}" method="GET">
+      <button type="submit" class="button btn-custom-green btn-block">Prikaži moje podatke</button>
     </form>
 
-    <form action="{{url('odjava')}}" method="GET" style="width: 60%;">
-      <button type="submit" class="btn btn-primary btn-custom-green">Odjava</button>
-    </form>
+
+    %if napaka:
+    <p class="opozorilo">{{napaka}}</p>
+    %end
   </div>
-
-  %if napaka:
-  <p class="opozorilo">{{napaka}}</p>
-  %end
-</div>

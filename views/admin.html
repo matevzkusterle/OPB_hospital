@@ -1,21 +1,18 @@
 %rebase('osnova.html', naslov='Administracija')
 
-<div class="row">
-  <div class="col-md-6 offset-md-3">
+<div class="container">
+  <div class="form-container">
     <form action="{{url('prikazi_zdravnike')}}" method="GET">
-      <button type="submit" class="btn btn-primary btn-block">Prikaži zdravnike</button>
+      <button type="submit" class="button btn-custom-green btn-block">Prikaži zdravnike</button>
     </form>
     <form action="{{url('prikazi_paciente')}}" method="GET">
-      <button type="submit" class="btn btn-primary btn-block">Prikaži paciente</button>
+      <button type="submit" class="button btn-custom-green btn-block">Prikaži paciente</button>
     </form>
     <form action="{{url('prikazi_uporabnike')}}" method="GET">
-      <button type="submit" class="btn btn-primary btn-block">Prikaži uporabnike v bazi</button>
+      <button type="submit" class="button btn-custom-green btn-block">Prikaži uporabnike v bazi</button>
     </form>
     <form action="{{url('dodaj_zdravnika')}}" method="GET">
-      <button type="submit" class="btn btn-primary btn-block">Dodaj zdravnika</button>
-    </form>
-    <form action="{{url('odjava')}}" method="GET">
-      <button type="submit" class="btn btn-primary btn-block">Odjava</button>
+      <button type="submit" class="button btn-custom-green btn-block">Dodaj zdravnika</button>
     </form>
 
     %if napaka:

@@ -1,25 +1,21 @@
-%rebase('osnova.html', napaka=napaka, naslov = 'Pogled zdravnik', stran='pogled')
+%rebase('osnova.html', napaka=napaka, naslov='Pogled zdravnik', stran='pogled')
 
 <div class="container">
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <form action="{{url('prikazi_moje_paciente')}}" method="GET" style="width: 60%; margin-bottom: 20px;">
-      <button type="submit" class="btn btn-primary btn-custom-green">Prikaži moje paciente</button>
+  <div class="form-container">
+    <form action="{{url('prikazi_moje_paciente')}}" method="GET">
+      <button type="submit" class="button btn-custom-green btn-block">Prikaži moje paciente</button>
     </form>
 
-    <form action="{{url('dodaj_pacienta')}}" method="GET" style="width: 60%; margin-bottom: 20px;">
-      <button type="submit" class="btn btn-primary btn-custom-green">Dodaj pacienta</button>
+    <form action="{{url('dodaj_pacienta')}}" method="GET">
+      <button type="submit" class="button btn-custom-green btn-block">Dodaj pacienta</button>
     </form>
 
-    <form action="{{url('dodaj_diagnozo')}}" method="GET" style="width: 60%; margin-bottom: 20px;">
-      <button type="submit" class="btn btn-primary btn-custom-green">Dodaj diagnozo obstoječemu pacientu</button>
+    <form action="{{url('dodaj_diagnozo')}}" method="GET">
+      <button type="submit" class="button btn-custom-green btn-block">Dodaj diagnozo</button>
     </form>
 
-    <form action="{{url('moja_specializacija')}}" method="GET" style="width: 60%; margin-bottom: 20px;">
-      <button type="submit" class="btn btn-primary btn-custom-green">Moja specializacija</button>
-    </form>
-
-    <form action="{{url('odjava')}}" method="GET" style="width: 60%;">
-      <button type="submit" class="btn btn-primary btn-custom-green">Odjava</button>
+    <form action="{{url('moja_specializacija')}}" method="GET">
+      <button type="submit" class="button btn-custom-green btn-block">Moja specializacija</button>
     </form>
   </div>
 
