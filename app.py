@@ -391,11 +391,6 @@ def dodaj_pacienta():
     Dodajanje pacienta.
     """
     rola = request.get_cookie("rola") 
-    if rola not in ['admin', 'Zdravnik']:
-        # Redirect or show an error page if user doesn't have permission
-        return template('error.html', 
-                        napaka="Nimate dovoljenja za ogled te strani!")
-
     return template('dodaj_pacienta.html', rola=rola, napaka = None)
 
 @post('/pogled_zdravnik/dodaj_pacienta')
