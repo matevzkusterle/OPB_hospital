@@ -101,6 +101,30 @@ class Repo:
     
         return typ.from_dict(d)
     
+    def dobi_ime_priimek_uporabnika(self,
+                                    username: str) -> str:
+        """
+        Vrne ime in priimek uporabnika.
+        """
+
+        self.cur.execute(
+            """
+            SELECT ime, priimek FROM uporabnik WHERE username =
+            %s
+            """,
+            (username,)
+        )
+
+        ime_priimek = self.cur.fetchone()
+
+        if ime_priimek is None:
+            raise Exception(
+                f'Vrstica z username {username} ne obstaja v tabeli uporabnik'
+            )
+        
+        return f'{ime_priimek[0]} {ime_priimek[1]}'
+
+    
     def izberi_paciente_zdravnika(self, ime: str, 
                                   priimek: str) -> List[pacient]:
         """

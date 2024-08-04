@@ -20,9 +20,17 @@ def template(*largs, **kwargs):
     """
     Izpis predloge s podajanjem funkcije url.
     """
-
+    if 'zdravnik' in kwargs and kwargs['zdravnik'] is not None:
+        return bottle.template(*largs, **kwargs, url=bottle.url, pacient=None, admin=None)
     
-    return bottle.template(*largs, **kwargs, url=bottle.url)
+    if 'admin' in kwargs and kwargs['admin'] is not None:
+        return bottle.template(*largs, **kwargs, url=bottle.url, zdravnik=None, pacient=None)
+    
+    if 'pacient' in kwargs and kwargs['pacient'] is not None:
+        return bottle.template(*largs, **kwargs, url=bottle.url, zdravnik=None, admin=None)
+    
+    return bottle.template(*largs, **kwargs, url=bottle.url, zdravnik=None, pacient=None, admin=None)
+
 
 def template_user(*largs, **kwargs):
     """

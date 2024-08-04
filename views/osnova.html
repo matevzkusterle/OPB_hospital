@@ -82,19 +82,74 @@
       box-sizing: border-box;
       /* Da padding ne vpliva na širino */
     }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background-color: #28a745;
+      color: white;
+    }
+
+    .navbar .brand {
+      flex-basis: 20%;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: black;
+    }
+
+    .navbar .right-content {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+      justify-content: flex-end;
+    }
+
+    .navbar .right-content>div {
+      margin-left: 1rem;
+      color: black;
+    }
+
+    .navbar .right-content>div span {
+      color: black;
+    }
   </style>
 </head>
 
 <body>
-  <section class="hero is-small is-custom-green">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          Bolnišnica
-        </h1>
-      </div>
+  <nav class="navbar">
+    <div class="brand">
+      Bolnišnica
     </div>
-  </section>
+    <div class="right-content">
+      %if zdravnik:
+      <div>
+        <span>Dr. {{zdravnik}}</span>
+      </div>
+      <div>
+        <a href="{{url('odjava')}}" class="btn btn-custom-green">Odjava</a>
+      </div>
+      %end
+      %if pacient:
+      <div>
+        <span>{{pacient}}</span>
+      </div>
+      <div>
+        <a href="{{url('odjava')}}" class="btn btn-custom-green">Odjava</a>
+      </div>
+      %end
+      %if admin:
+      <div>
+        <span>{{admin}}</span>
+      </div>
+      <div>
+        <a href="{{url('odjava')}}" class="btn btn-custom-green">Odjava</a>
+      </div>
+      %end
+    </div>
+  </nav>
 
   <div class="container">
     <h2 class="title" style="text-align: center;">{{naslov}}</h2> <br>

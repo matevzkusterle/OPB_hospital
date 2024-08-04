@@ -291,17 +291,21 @@ def odjava():
 @get('/admin')
 @cookie_required
 def admin():
-    rola = request.get_cookie("rola") 
-    return template('admin.html', rola = rola, napaka = None)
+    rola = request.get_cookie("rola")
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
+
+    return template('admin.html', rola = rola, napaka = None, admin=ime_priimek)
 
 @get('/admin/prikazi_zdravnike')
 @cookie_required
 def prikazi_zdravnike():
 
     zdravniki = repo.zdravnik()
-
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
     return template('prikazi_zdravnike.html', zdravniki = zdravniki, 
-                    napaka = None)
+                    napaka = None, admin=ime_priimek)
 
 
 
@@ -310,8 +314,10 @@ def prikazi_zdravnike():
 def prikazi_paciente():
 
     pacienti = repo.pacientDiag()
-
-    return template('prikazi_paciente.html', pacienti = pacienti, napaka = None)
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
+    return template('prikazi_paciente.html', pacienti = pacienti, 
+                    napaka = None, admin=ime_priimek)
 
 @get('/admin/dodaj_zdravnika')
 @cookie_required
@@ -319,9 +325,11 @@ def dodaj_zdravnika():
     """
     Dodajanje zdravnika.
     """
-    
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
     rola = request.get_cookie("rola")
-    return template('dodaj_zdravnika.html', rola = rola, napaka = None)
+    return template('dodaj_zdravnika.html', rola = rola, 
+                    napaka = None, admin=ime_priimek)
 
 @post('/admin/dodaj_zdravnika')
 @cookie_required
@@ -333,17 +341,21 @@ def dodaj_zdravnika_post():
     ime = request.forms.get('ime')
     priimek = request.forms.get('priimek')
     specializacija = request.forms.get('spec')
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
 
     if not ime or not priimek or not specializacija:
         return template('dodaj_zdravnika.html', rola = rola, 
-                        napaka="Prosim, izpolnite vsa polja.")
+                        napaka="Prosim, izpolnite vsa polja.", 
+                        admin=ime_priimek)
     existing_doctors = [
     (zdravnik.ime, zdravnik.priimek) 
     for zdravnik in repo.zdravnik()
     ]
     if (ime, priimek) in existing_doctors:
         return template('dodaj_zdravnika.html', rola = rola, 
-                        napaka="Zdravnik s tem imenom in priimkom že obstaja.")
+                        napaka="Zdravnik s tem imenom in priimkom že obstaja.",
+                        admin=ime_priimek)
     try:
         existing_specializacije = [spec.opis for spec in repo.specializacije()]
         if specializacija not in existing_specializacije:
@@ -351,25 +363,31 @@ def dodaj_zdravnika_post():
         
         repo.dodaj_gen(zdravnik(ime=ime, priimek=priimek, opis=specializacija))
         return template('dodajanje_uspesno.html', 
-                        napaka="Zdravnik uspešno dodan.")
+                        napaka="Zdravnik uspešno dodan.",
+                        admin=ime_priimek)
     except Exception as e:
         return template('dodaj_zdravnika.html', 
-                        napaka=f"Napaka pri dodajanju zdravnika: {e}")
+                        napaka=f"Napaka pri dodajanju zdravnika: {e}",
+                        admin=ime_priimek)
     
 @get('/admin/prikazi_uporabnike')
 @cookie_required
 def prikazi_uporabnike():
 
     uporabniki = repo.uporabnik()
-
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
     return template('prikazi_uporabnike.html', uporabniki = uporabniki, 
-                    napaka = None)
+                    napaka = None, admin=ime_priimek)
 
 ##----------------FUNCTIONS FOR ZDRAVNIK-----------------##
 @get('/pogled_zdravnik')
 @zdravnik_required
 def pogled_zdravnik():
-    return template('pogled_zdravnik.html', napaka = None)
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
+    return template('pogled_zdravnik.html', napaka = None,
+                    zdravnik=ime_priimek)
 
 @get('/pogled_zdravnik/prikazi_moje_paciente')
 @zdravnik_required
@@ -380,9 +398,12 @@ def prikazi_moje_paciente():
 
     pacienti = repo.izberi_paciente_zdravnika(zdravnik.ime, zdravnik.priimek)
     pacienti_diag = repo.pacient_to_pacientDiag(pacienti)
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
     
     return template('prikazi_moje_paciente.html', 
-                    pacienti_diag=pacienti_diag, napaka = None)
+                    pacienti_diag=pacienti_diag, napaka = None,
+                    zdravnik=ime_priimek)
 
 @get('/pogled_zdravnik/dodaj_pacienta')
 @zdravnik_required
@@ -391,7 +412,10 @@ def dodaj_pacienta():
     Dodajanje pacienta.
     """
     rola = request.get_cookie("rola") 
-    return template('dodaj_pacienta.html', rola=rola, napaka = None)
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
+    return template('dodaj_pacienta.html', rola=rola, napaka = None,
+                    zdravnik=ime_priimek)
 
 @post('/pogled_zdravnik/dodaj_pacienta')
 @zdravnik_required
@@ -403,15 +427,19 @@ def dodaj_pacienta_post():
     ime = request.forms.get('ime')
     priimek = request.forms.get('priimek')
     szz = request.forms.get('szz')
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
     if not ime or not priimek or not szz:
         return template('dodaj_pacienta.html', rola=rola, 
-                        napaka="Prosim, izpolnite vsa polja.")
+                        napaka="Prosim, izpolnite vsa polja.",
+                        zdravnik=ime_priimek)
     existing_pacients = [pacient.szz for pacient in repo.pacient()]
     if int(szz) in existing_pacients:
         return template(
-            'dodaj_pacienta.html', 
+            'dodaj_pacienta.html',
             rola=rola, 
-            napaka="Pacient s tem številom zdravstvenega zavarovanja že obstaja."
+            napaka="Pacient s tem številom zdravstvenega zavarovanja že obstaja.",
+            zdravnik=ime_priimek
         )
     try:
         pacientt = pacient(ime=ime, priimek=priimek, szz=szz)
@@ -424,10 +452,12 @@ def dodaj_pacienta_post():
             )
         repo.dodaj_gen(bridgee, serial_col=None)
         return template('dodajanje_uspesno.html', 
-                        napaka="Pacient uspešno dodan.")
+                        napaka="Pacient uspešno dodan.",
+                        zdravnik=ime_priimek)
     except Exception as e:
         return template('dodaj_pacienta.html', rola=rola, 
-                        napaka=f"Napaka pri dodajanju pacienta: {e}")
+                        napaka=f"Napaka pri dodajanju pacienta: {e}",
+                        zdravnik=ime_priimek)
 
 #diagnozo se lahko postavi le pacientu, ki je v bazi, torej v tabeli pacient
 #Torej, ko zdravnik dobi novega pacienta, ga najprej doda v bazo pacientov, \
@@ -439,7 +469,10 @@ def dodaj_diagnozo():
     Dodajanje diagnoze pacientu.
     """
     rola = request.get_cookie("rola")
-    return template('dodaj_diagnozo.html', rola=rola, napaka=None)
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
+    return template('dodaj_diagnozo.html', rola=rola, napaka=None,
+                    zdravnik=ime_priimek)
 
 @post('/pogled_zdravnik/dodaj_diagnozo')
 @zdravnik_required
@@ -451,6 +484,8 @@ def dodaj_diagnozo_post():
     szz = request.forms.get('szz')
     detajl = request.forms.get('diagnoza')
     koda = request.forms.get('koda')
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
 
     uporabnikk = request.get_cookie("uporabnik")
     zdravnikk = repo.dobi_gen_id(uporabnik, uporabnikk, id_col="username")
@@ -458,7 +493,8 @@ def dodaj_diagnozo_post():
    
     if not szz or not detajl or not koda:
         return template('dodaj_diagnozo.html', rola=rola, 
-                        napaka="Prosim, izpolnite vsa polja.")
+                        napaka="Prosim, izpolnite vsa polja.",
+                        zdravnik=ime_priimek)
     
     try:
         pacientt = repo.dobi_gen_id(pacient, int(szz), id_col="szz")
@@ -472,16 +508,19 @@ def dodaj_diagnozo_post():
                 )
             repo.dodaj_gen(diagnozaa)
             return template('dodajanje_diagnoze_uspesno.html', 
-                            napaka="Diagnoza uspešno dodana.")
+                            napaka="Diagnoza uspešno dodana.",
+                            zdravnik=ime_priimek)
         else:
             return template(
                 'dodaj_diagnozo.html', 
                 rola=rola, 
-                napaka="Pacient, kateremu želite dodeliti diagnozo, ne obstaja."
+                napaka="Pacient, kateremu želite dodeliti diagnozo, ne obstaja.",
+                zdravnik=ime_priimek
                 )
     except Exception as e:
         return template('dodaj_diagnozo.html', rola=rola, 
-                        napaka=f"Napaka pri dodajanju diagnoze: {e}")
+                        napaka=f"Napaka pri dodajanju diagnoze: {e}",
+                        zdravnik=ime_priimek)
 
 @get('/pogled_zdravnik/moja_specializacija')
 @zdravnik_required
@@ -492,15 +531,19 @@ def moja_specializacija():
     uporabnikk = request.get_cookie("uporabnik")
     zdravnik = repo.dobi_gen_id(uporabnik, uporabnikk, id_col="username")
     spec = repo.specializacija_zdravnik(zdravnik.ime, zdravnik.priimek)
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
 
     return template('moja_specializacija.html', specializacija = spec, 
-                    napaka=None)
+                    napaka=None, zdravnik=ime_priimek)
 
 ##----------------FUNCTIONS FOR PACIENT-----------------##
 @get('/pogled_pacient')
 @pacient_required
 def pogled_pacient():
-    return template('pogled_pacient.html', napaka = None)
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
+    return template('pogled_pacient.html', napaka = None, pacient=ime_priimek)
 
 @get('/pogled_pacient/moje_diagnoze')
 @pacient_required
@@ -508,7 +551,10 @@ def moje_diagnoze():
     uporabnikk = repo.dobi_gen_id(uporabnik, request.get_cookie("uporabnik"), 
                                   id_col="username")
     diagnoze = repo.prikazi_diagnoze_pacienta(uporabnikk.id_pacient)
-    return template('moje_diagnoze.html', diagnoze=diagnoze, napaka=None)
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
+    return template('moje_diagnoze.html', diagnoze=diagnoze, napaka=None,
+                    pacient=ime_priimek)
 
 @get('/pogled_pacient/moji_podatki')
 @pacient_required
@@ -516,7 +562,10 @@ def moji_podatki():
     uporabnikk = repo.dobi_gen_id(uporabnik, request.get_cookie("uporabnik"), 
                                   id_col="username")
     pacientt = repo.pacient_dobi_info(uporabnikk.id_pacient)
-    return template('moji_podatki', pacientt = pacientt, napaka = None)
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
+    return template('moji_podatki', pacientt = pacientt, napaka = None,
+                    pacient=ime_priimek)
 
 
 
