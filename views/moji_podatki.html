@@ -1,34 +1,14 @@
-%rebase('osnova.html', napaka = napaka, naslov='Moji podatki', stran='moji podatki')
+%rebase('osnova.html', napaka=napaka, naslov='Moji podatki', stran='moji podatki')
 
-<div>
-  <div style="display: flex;">
-    <div style="flex:1;">
-      <table data-toggle="table" data-sticky-header="false" data-search="false" data-show-columns="true"
-        data-sortable="false" id="izdelki" data-height="500">
-        <thead>
-          <tr>
-            <th>Številka zdravstvenega zavarovanja</th>
-            <th>Ime</th>
-            <th>Priimek</th>
-          </tr>
-        </thead>
-
-        %for pacient in pacientt:
-        <tr>
-          <td>{{pacient.ime}}</td>
-          <td>{{pacient.priimek}}</td>
-          <td>{{pacient.szz}}</td>
-          <!-- <td>
-            <a href="url('izbrisi_izdelek', id=izdelek.id)"> izbriši</a>
-           </td> -->
-
-        </tr>
-        %end
-      </table>
-
-
-    </div>
-
+<div class="info-container">
+  %for pacient in pacientt:
+  <div class="info-item">
+    <h3>Številka zdravstvenega zavarovanja</h3>
+    <p>{{pacient.szz}}</p>
+    <h3>Ime</h3>
+    <p>{{pacient.ime}}</p>
+    <h3>Priimek</h3>
+    <p>{{pacient.priimek}}</p>
   </div>
-
+  %end
 </div>

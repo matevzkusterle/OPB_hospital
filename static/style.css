@@ -1,6 +1,9 @@
 /* Stil za opozorilne elemente */
 .opozorilo {
   color: #ff0000;
+  font-size: 1em;
+  margin-top: 1em;
+  text-align: center;
 }
 
 /* Slog za container */
@@ -26,13 +29,247 @@ div.container {
   width: 100%;
   text-align: center;
   border-collapse: collapse;
+  /* Združi robove celic */
+  margin-top: 20px;
+  overflow-x: auto;
+  /* Omogoči horizontalno pomikanje */
+}
+
+/* Slog za glave tabele */
+.searchtbl thead th {
+  position: sticky;
+  top: 0;
+  height: 40px;
+  background-color: #f2f2f2;
+  box-shadow: inset 0 2px 0 #ddd, inset 0 -2px 0 #ddd;
+  padding: 2px 0;
+}
+
+/* Slog za vrstice tabele */
+.searchtbl tbody tr {
+  border-bottom: 1px solid #ddd;
+  /* Rahlo ločevanje vrstic */
+}
+
+/* Slog za posamezne celice v tabeli */
+.searchtbl td {
+  padding: 0.75em 1em;
+  border-top: 1px solid #ddd;
+  /* Rahlo ločevanje celic z vrha */
+}
+
+/* Stil za obvestila */
+.notification.is-success {
+  background-color: #d4edda;
+  /* Svetlo zelena */
+  color: #155724;
+  /* Temno zelena */
+  padding: 1em;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+/* Stil za obvestila o napakah */
+.notification.is-danger {
+  background-color: #f8d7da;
+  /* Svetlo rdeča */
+  color: #721c24;
+  /* Temno rdeča za besedilo */
+  padding: 1em;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1em;
+}
+
+/* Slog za obrazec */
+.form-container {
+  max-width: 100%;
+  /* Maksimalna širina obrazca */
+  margin: 0 auto;
+  /* Centeriranje obrazca */
+  padding: 2em;
+  /* Povečana obloga za boljši videz */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Stil za input polja */
+.input {
+  width: calc(100% - 2em);
+  /* Povečajte širino polja vnosa */
+  padding: 0.75em 1em;
+  /* Oblazinjeno za udobje */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  color: #333;
+  box-sizing: border-box;
+  /* Da padding ne vpliva na širino */
+}
+
+/* Stil za placeholder besedilo */
+.input::placeholder {
+  color: #aaa;
+  /* Svetlo siva barva za placeholder besedilo */
+}
+
+/* Stil za gumb */
+.button.btn-custom-green {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.75em 1.5em;
+  /* Večje oblazinjeno za profesionalen videz */
+  border-radius: 4px;
+  font-size: 1em;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 1em;
+  /* Dodajte to vrstico za razmik zgoraj */
+}
+
+.button.btn-custom-green:hover {
+  background-color: #218838;
+  /* Temnejša zelena za hover efekt */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Dodaten senco za hover efekt */
+}
+
+/* Container for the information display */
+.info-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for each item in the info container */
+.info-item {
+  margin-bottom: 20px;
+}
+
+/* Styling for the headers in each item */
+.info-item h3 {
+  margin: 0;
+  font-size: 1.2em;
+  color: #333;
+}
+
+/* Styling for the paragraphs in each item */
+.info-item p {
+  margin: 5px 0;
+  font-size: 1em;
+  color: #666;
+}
+
+/* Stil za profesionalnejši videz menija */
+.menu {
+  background-color: #ffffff;
+  /* Ozadje menija */
+  border: 1px solid #ddd;
+  /* Rob menija */
+  border-radius: 8px;
+  /* Zaobljeni robovi */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Senčenje */
+  padding: 1.5em;
+}
+
+.menu-label {
+  font-size: 1.25em;
+  /* Večja velikost pisave za naslove */
+  color: #333;
+  /* Temna barva besedila */
+  margin-bottom: 1em;
+  /* Razmik spodaj */
+}
+
+.menu-list {
+  list-style: none;
+  /* Odstrani oznake seznamov */
+  padding-left: 0;
+  /* Odstrani oblogo na levi strani */
+}
+
+.menu-link {
+  color: #007bff;
+  /* Barva povezav */
+  text-decoration: none;
+  /* Odstrani podčrtovanje */
+  transition: color 0.2s;
+  /* Prehod za barvo */
+}
+
+.menu-link:hover {
+  color: #0056b3;
+  /* Temnejša barva ob hoverju */
+}
+
+/* Slog za tabelo znotraj obrazca */
+.table-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1em;
+  background-color: #fff;
+  border: none;
+  /* Odstrani rob */
+  border-radius: 0;
+  /* Odstrani zaobljene robove */
+  box-shadow: none;
+  /* Odstrani senco */
+  overflow-x: auto;
+  /* Omogoči horizontalno pomikanje */
+}
+
+/* Slog za obrazec znotraj tabele */
+.table-container form {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.table-container .select {
+  margin-right: 10px;
+}
+
+.table-container .input {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5em;
+}
+
+.table-container .button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+}
+
+.table-container .button:hover {
+  background-color: #0056b3;
+}
+
+/* Slog za tabelo */
+.searchtbl {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
   margin-top: 20px;
   /* Add some space above the table */
 }
 
 /* Slog za glave tabele */
 .searchtbl thead th {
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   height: 40px;
@@ -43,7 +280,48 @@ div.container {
   padding: 2px 0;
 }
 
-/* Prvi element v tbody */
-.searchtbl tbody:nth-of-type(1) tr:nth-of-type(1) td {
-  border-top: none !important;
+/* Slog za vrstice tabele */
+.searchtbl tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+/* Slog za posamezne celice v tabeli */
+.searchtbl td {
+  padding: 0.75em 1em;
+  border-top: 1px solid #ddd;
+}
+
+/* Stil za iskalno polje */
+#search-input {
+  width: calc(100% - 110px);
+  /* Širina polja za iskanje */
+  padding: 0.75em;
+  /* Oblazinjenje */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  color: #333;
+  box-sizing: border-box;
+  /* Da padding ne vpliva na širino */
+  margin-right: 10px;
+  /* Razmik desno od gumba */
+}
+
+/* Stil za gumb za iskanje */
+#search-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75em 1.5em;
+  /* Oblazinjenje */
+  border-radius: 4px;
+  font-size: 1em;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+#search-button:hover {
+  background-color: #0056b3;
+  /* Temnejša barva ob hoverju */
 }

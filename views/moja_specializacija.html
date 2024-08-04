@@ -1,34 +1,16 @@
-%rebase('osnova.html', napaka = napaka, naslov='Moja specializacija', stran='specializacija')
+%rebase('osnova.html', napaka=napaka, naslov='Moja specializacija', stran='specializacija')
 
-<div>
-  <div style="display: flex;">
-    <div style="flex:1;">
-      <table data-toggle="table" data-sticky-header="false" data-search="false" data-show-columns="false"
-        data-sortable="true" id="izdelki" data-height="500">
-        <thead>
-          <tr>
-            <th>Ime</th>
-            <th>Priimek</th>
-            <th>Opis</th>
-          </tr>
-        </thead>
-
-
-        <tr>
-          <td>{{specializacija.ime}}</td>
-          <td>{{specializacija.priimek}}</td>
-          <td>{{specializacija.opis}}</td>
-          <!-- <td>
-            <a href="url('izbrisi_izdelek', id=izdelek.id)"> izbriši</a>
-           </td> -->
-
-        </tr>
-        %end
-      </table>
-
-
-    </div>
-
+<div class="info-container">
+  <div class="info-item">
+    <h3>Ime:</h3>
+    <p>{{specializacija.ime}}</p>
   </div>
-
+  <div class="info-item">
+    <h3>Priimek:</h3>
+    <p>{{specializacija.priimek}}</p>
+  </div>
+  <div class="info-item">
+    <h3>Opis:</h3>
+    <p>{{specializacija.opis}}</p>
+  </div>
 </div>

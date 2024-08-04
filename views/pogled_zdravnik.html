@@ -1,24 +1,29 @@
-%rebase('osnova.html', napaka = napaka, naslov='Moj pogled', stran='pogled')
+%rebase('osnova.html', napaka=napaka, naslov = 'Pogled zdravnik', stran='pogled')
 
-<form action="{{url('prikazi_moje_paciente')}}" method="GET" style="width:60%">
-  <button type="submit" class="btn btn-primary">Prikaži moje paciente</button>
-</form>
+<div class="container">
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <form action="{{url('prikazi_moje_paciente')}}" method="GET" style="width: 60%; margin-bottom: 20px;">
+      <button type="submit" class="btn btn-primary btn-custom-green">Prikaži moje paciente</button>
+    </form>
 
-<form action="{{url('dodaj_pacienta')}}" method="GET" style="width:60%">
-  <button type="submit" class="btn btn-primary">Dodaj pacienta</button>
-</form>
+    <form action="{{url('dodaj_pacienta')}}" method="GET" style="width: 60%; margin-bottom: 20px;">
+      <button type="submit" class="btn btn-primary btn-custom-green">Dodaj pacienta</button>
+    </form>
 
-<form action="{{url('dodaj_diagnozo')}}" method="GET" style="width:60%">
-  <button type="submit" class="btn btn-primary">Dodaj diagnozo obstoječemu pacientu</button>
-</form>
+    <form action="{{url('dodaj_diagnozo')}}" method="GET" style="width: 60%; margin-bottom: 20px;">
+      <button type="submit" class="btn btn-primary btn-custom-green">Dodaj diagnozo obstoječemu pacientu</button>
+    </form>
 
-<form action="{{url('moja_specializacija')}}" method="GET" style="width:60%">
-  <button type="submit" class="btn btn-primary">Moja specializacija</button>
-</form>
+    <form action="{{url('moja_specializacija')}}" method="GET" style="width: 60%; margin-bottom: 20px;">
+      <button type="submit" class="btn btn-primary btn-custom-green">Moja specializacija</button>
+    </form>
 
-<form action="{{url('odjava')}}" method="GET" style="width:60%">
-  <button type="submit" class="btn btn-primary">Odjava</button>
-</form>
-%if napaka:
-<p class="opozorilo">{{napaka}}</p>
-%end
+    <form action="{{url('odjava')}}" method="GET" style="width: 60%;">
+      <button type="submit" class="btn btn-primary btn-custom-green">Odjava</button>
+    </form>
+  </div>
+
+  %if napaka:
+  <p class="opozorilo">{{napaka}}</p>
+  %end
+</div>

@@ -1,23 +1,39 @@
-%rebase('osnova.html', napaka = napaka, naslov='Dodajanje diagnoze', stran='diagnoza')
+%rebase('osnova.html', napaka=napaka, naslov='Dodajanje diagnoze')
 
 % if rola == 'Zdravnik':
-<form action="{{url('dodaj_diagnozo_post')}}" method="POST" , style="width: 60%; margin-left: 5%;">
-  <div class="form-group">
-    <label for="username">Szz</label>
-    <input type="input" class="form-control" name="szz" placeholder="Vnesi szz pacienta">
-  </div>
-  <div class="form-group">
-    <label for="username">Koda</label>
-    <input type="input" class="form-control" name="koda" placeholder="Vnesi kodo diagnoze">
-  </div>
-  <div class="form-group">
-    <label for="username">Detajl</label>
-    <input type="input" class="form-control" name="diagnoza" placeholder="Vnesi diagnozo">
-  </div>
-  <button type="submit" class="btn btn-light">Dodaj</button>
-</form>
+<div class="form-container">
+  <form action="{{url('dodaj_diagnozo_post')}}" method="POST">
+    <div class="field">
+      <label class="label" for="szz">SZZ</label>
+      <div class="control">
+        <input class="input" type="text" name="szz" placeholder="Vnesi SZZ pacienta">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="koda">Koda</label>
+      <div class="control">
+        <input class="input" type="text" name="koda" placeholder="Vnesi kodo diagnoze">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="diagnoza">Detajl</label>
+      <div class="control">
+        <input class="input" type="text" name="diagnoza" placeholder="Vnesi diagnozo">
+      </div>
+    </div>
+    <div class="control">
+      <button type="submit" class="button btn-custom-green">Dodaj</button>
+    </div>
+  </form>
+</div>
 
 %else:
-<p> Nimaš dovoljenja za ogled te strani!</p>
+<p>Nimaš dovoljenja za ogled te strani!</p>
 
 %end
+
+% if napaka:
+<div class="notification is-danger">
+  <p>{{napaka}}</p>
+</div>
+% end

@@ -1,23 +1,40 @@
-%rebase('osnova.html', napaka = napaka, naslov='Dodajanje pacienta', stran='pacienti')
+%rebase('osnova.html', napaka=napaka, naslov='Dodajanje pacienta', stran='pacienti')
 
 % if rola == 'Zdravnik':
-<form action="{{url('dodaj_pacienta_post')}}" method="POST" , style="width: 60%; margin-left: 5%;">
-  <div class="form-group">
-    <label for="username">Ime</label>
-    <input type="input" class="form-control" name="ime" placeholder="Vnesi ime pacienta">
-  </div>
-  <div class="form-group">
-    <label for="username">Priimek</label>
-    <input type="input" class="form-control" name="priimek" placeholder="Vnesi priimek pacienta">
-  </div>
-  <div class="form-group">
-    <label for="username">SZZ</label>
-    <input type="input" class="form-control" name="szz" placeholder="Vnesi številko zdravstvenega zavarovanja pacienta">
-  </div>
-  <button type="submit" class="btn btn-light">Dodaj</button>
-</form>
+<div class="container">
+  <form action="{{url('dodaj_pacienta_post')}}" method="POST" class="form-container">
+    <div class="field">
+      <label class="label" for="ime">Ime</label>
+      <div class="control">
+        <input class="input" type="text" name="ime" id="ime" placeholder="Vnesi ime pacienta" required>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="priimek">Priimek</label>
+      <div class="control">
+        <input class="input" type="text" name="priimek" id="priimek" placeholder="Vnesi priimek pacienta" required>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="szz">Številka zdravstvenega zavarovanja</label>
+      <div class="control">
+        <input class="input" type="text" name="szz" id="szz"
+          placeholder="Vnesi številko zdravstvenega zavarovanja pacienta" required>
+      </div>
+    </div>
+    <div class="control">
+      <button type="submit" class="button btn-custom-green">Dodaj</button>
+    </div>
+  </form>
+</div>
 
 %else:
-<p> Nimaš dovoljenja za ogled te strani!</p>
+<p>Nimaš dovoljenja za ogled te strani!</p>
 
 %end
+
+% if napaka:
+<div class="notification is-danger">
+  <p>{{napaka}}</p>
+</div>
+% end

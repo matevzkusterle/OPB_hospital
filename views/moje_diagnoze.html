@@ -2,37 +2,28 @@
 
 <div>
   <div style="display: flex;">
-    <div style="flex:1;">
+    <div style="flex: 1;">
       <table data-toggle="table" data-sticky-header="true" data-search="true" data-show-columns="true"
-        data-sortable="true" id="izdelki" data-height="500">
+        data-sortable="true" id="diagnozeTable" data-height="500">
         <thead>
           <tr>
             <th>Detajli</th>
             <th>Koda</th>
             <th>Aktivnost</th>
             <th>Zdravnik</th>
-
           </tr>
         </thead>
-
-        %for diagnozaa in diagnoze:
-        <tr>
-          <td>{{diagnozaa.detajli}}</td>
-          <td>{{diagnozaa.koda}}</td>
-          <td>{{diagnozaa.aktivnost}}</td>
-          <td>{{diagnozaa.ime}} {{diagnozaa.priimek}}</td>
-
-          <!-- <td>
-            <a href="url('izbrisi_izdelek', id=izdelek.id)"> izbriši</a>
-           </td> -->
-
-        </tr>
-        %end
+        <tbody>
+          %for diagnozaa in diagnoze:
+          <tr>
+            <td>{{diagnozaa.detajli}}</td>
+            <td>{{diagnozaa.koda}}</td>
+            <td>{{diagnozaa.aktivnost}}</td>
+            <td>{{diagnozaa.ime}} {{diagnozaa.priimek}}</td>
+          </tr>
+          %end
+        </tbody>
       </table>
-
-
     </div>
-
   </div>
-
 </div>

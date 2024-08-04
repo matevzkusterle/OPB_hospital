@@ -1,35 +1,35 @@
 %rebase('osnova.html', naslov='Registracija pacient', stran='registracija pacient')
 
-<form action="{{url('registracija_pacient')}}" method="POST" style="width:60%">
-    <div class="form-group">
-      <label for="username">Ime</label>
-      <input type="input" class="form-control" name="ime"  placeholder="Vnesi svoje ime">
-    </div>
-    <div class="form-group">
-      <label for="username">Priimek</label>
-      <input type="input" class="form-control" name="priimek"  placeholder="Vnesi svoj priimek">
-    </div>
-    <div class="form-group">
-      <label for="username">SZZ</label>
-      <input type="input" class="form-control" name="szz"  placeholder="Vnesi svojo številko zdravstvenega zavarovanja">
-    </div>
-    <div class="form-group">
-      <label for="username">Uporabniško ime</label>
-      <input type="input" class="form-control" name="username"  placeholder="Vnesi uporabniško ime">
-    </div>
-    <div class="form-group">
-      <label for="password">Geslo</label>
-      <input type="password" class="form-control" name="password" placeholder="Geslo">
-    </div>
-    <div class="form-group">
-        <label for="password">Ponovi Geslo</label>
-        <input type="password" class="form-control" name="password2" placeholder="Geslo">
-      </div>
-      
-   
-    <button type="submit" class="btn btn-primary">Registracija</button>
-  </form>
+<form action="{{url('registracija_pacient')}}" method="POST" class="form-container">
+  <div class="form-group">
+    <label for="ime">Ime</label><br>
+    <input type="text" id="ime" name="ime" class="input" placeholder="Vnesi svoje ime" required>
+  </div>
+  <div class="form-group">
+    <label for="priimek">Priimek</label><br>
+    <input type="text" id="priimek" name="priimek" class="input" placeholder="Vnesi svoj priimek" required>
+  </div>
+  <div class="form-group">
+    <label for="szz">SZZ</label><br>
+    <input type="text" id="szz" name="szz" class="input" placeholder="Vnesi svojo številko zdravstvenega zavarovanja"
+      required>
+  </div>
+  <div class="form-group">
+    <label for="username">Uporabniško ime</label><br>
+    <input type="text" id="username" name="username" class="input" placeholder="Vnesi uporabniško ime" required>
+  </div>
+  <div class="form-group">
+    <label for="password">Geslo</label><br>
+    <input type="password" id="password" name="password" class="input" placeholder="Geslo" required>
+  </div>
+  <div class="form-group">
+    <label for="password2">Ponovi Geslo</label><br>
+    <input type="password" id="password2" name="password2" class="input" placeholder="Ponovi geslo" required>
+  </div>
 
-  %if napaka:
-  <p class="opozorilo">{{napaka}}</p>
+  <button type="submit" class="button btn-custom-green">Registracija</button>
+</form>
+
+%if napaka:
+<p class="opozorilo">{{napaka}}</p>
 %end

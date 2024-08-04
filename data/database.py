@@ -493,7 +493,7 @@ class Repo:
     def pacient_dobi_info(self, id: int) -> List[pacient]:
         self.cur.execute(
             """
-            SELECT i.id, i.szz, i.ime, i.priimek  FROM pacient i
+            SELECT i.id, i.ime, i.priimek, i.szz FROM pacient i
             WHERE i.id = %s
             """
             , (id,))
