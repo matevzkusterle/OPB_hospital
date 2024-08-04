@@ -15,29 +15,27 @@
             <th>aktivnost</th>
           </tr>
         </thead>
-
-        %for pacientt in pacienti_diag:
-        <tr>
-          <td>{{pacientt.ime}}</td>
-          <td>{{pacientt.priimek}}</td>
-          <td>{{pacientt.szz}}</td>
-          <td>{{pacientt.koda}}</td>
-          <td>{{pacientt.detajli}}</td>
-          <td>
-            <form action="/update_aktivnost" method="post">
-              <input type="hidden" name="id" value="{{pacientt.id_diagnoza}}">
-              <select name="aktivnost">
-                <option value="true" {{'selected' if pacientt.aktivnost else '' }}>Aktivna</option>
-                <option value="false" {{'selected' if not pacientt.aktivnost else '' }}>Neaktivna</option>
-              </select>
-              <button type="submit">Posodobi</button>
-            </form>
-          </td>
-
-          </td>
-        </tr>
-        %end
-
+        <tbody>
+          %for pacientt in pacienti_diag:
+          <tr>
+            <td>{{pacientt.ime}}</td>
+            <td>{{pacientt.priimek}}</td>
+            <td>{{pacientt.szz}}</td>
+            <td>{{pacientt.koda}}</td>
+            <td>{{pacientt.detajli}}</td>
+            <td>
+              <form action="/update_aktivnost" method="post">
+                <input type="hidden" name="id" value="{{pacientt.id_diagnoza}}">
+                <select name="aktivnost">
+                  <option value="true" {{'selected' if pacientt.aktivnost else '' }}>Aktivna</option>
+                  <option value="false" {{'selected' if not pacientt.aktivnost else '' }}>Neaktivna</option>
+                </select>
+                <button type="submit">Posodobi</button>
+              </form>
+            </td>
+          </tr>
+          %end
+        </tbody>
       </table>
     </div>
   </div>
