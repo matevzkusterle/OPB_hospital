@@ -3,7 +3,12 @@
 <div class="container">
   <div class="form-container">
     <form action="{{url('prikazi_moje_paciente')}}" method="GET">
-      <button type="submit" class="button btn-custom-green btn-block">Prikaži moje paciente</button>
+      <button type="submit" class="button btn-custom-green btn-block">Prikaži seznam mojih pacientov skupaj z njihovimi
+        diagnozami</button>
+    </form>
+
+    <form action="{{url('prikazi_seznam_pacientov')}}" method="GET">
+      <button type="submit" class="button btn-custom-green btn-block">Prikaži seznam mojih pacientov</button>
     </form>
 
     <form action="{{url('dodaj_pacienta')}}" method="GET">

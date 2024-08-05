@@ -1,0 +1,25 @@
+%rebase('osnova.html', naslov='Seznam mojih pacientov z diagnozami', stran='pacienti')
+
+<div class="container">
+  <div class="table-container">
+    <table data-toggle="table" data-sticky-header="true" data-search="true" data-show-columns="true"
+      data-sortable="true" id="pacienti-diagnoze" data-height="500">
+      <thead>
+        <tr>
+          <th>Ime</th>
+          <th>Priimek</th>
+          <th>Številka zdravstvenega zavarovanja</th>
+        </tr>
+      </thead>
+      <tbody>
+        %for pacientt in pacienti:
+        <tr>
+          <td>{{pacientt.ime}}</td>
+          <td>{{pacientt.priimek}}</td>
+          <td>{{pacientt.szz}}</td>
+        </tr>
+        %end
+      </tbody>
+    </table>
+  </div>
+</div>

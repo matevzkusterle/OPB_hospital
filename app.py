@@ -405,6 +405,15 @@ def prikazi_moje_paciente():
                     pacienti_diag=pacienti_diag, napaka = None,
                     zdravnik=ime_priimek)
 
+@get('/pogled_zdravnik/prikazi_seznam_pacientov')
+@zdravnik_required
+def prikazi_seznam_pacientov():
+    pacienti = repo.pacient()
+    ime_priimek = \
+            repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
+    return template('prikazi_seznam_pacientov.html', pacienti = pacienti, 
+                    napaka = None, zdravnik=ime_priimek)
+
 @get('/pogled_zdravnik/dodaj_pacienta')
 @zdravnik_required
 def dodaj_pacienta():

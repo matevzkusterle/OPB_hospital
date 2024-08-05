@@ -20,6 +20,8 @@ def template(*largs, **kwargs):
     """
     Izpis predloge s podajanjem funkcije url.
     """
+    usr_cookie = request.get_cookie("uporabnik")
+    usr_role = request.get_cookie("rola")
     if 'zdravnik' in kwargs and kwargs['zdravnik'] is not None:
         return bottle.template(*largs, **kwargs, url=bottle.url, pacient=None, admin=None)
     
