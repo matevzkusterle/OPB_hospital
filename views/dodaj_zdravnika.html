@@ -1,6 +1,5 @@
 %rebase('osnova.html', napaka=napaka, naslov='Dodajanje zdravnika', stran='dodaj zdravnika')
 
-% if rola == 'admin':
 <div class="form-container">
   <form action="{{url('dodaj_zdravnika_post')}}" method="POST">
     <div class="field">
@@ -25,15 +24,9 @@
       <button type="submit" class="button btn-custom-green">Dodaj</button>
     </div>
   </form>
+  % if napaka:
+  <div class="notification is-danger">
+    {{napaka}}
+  </div>
+  % end
 </div>
-
-%else:
-<p>Nimaš dovoljenja za ogled te strani!</p>
-
-%end
-
-% if napaka:
-<div class="notification is-danger">
-  <p>{{napaka}}</p>
-</div>
-% end

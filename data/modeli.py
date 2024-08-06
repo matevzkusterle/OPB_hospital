@@ -38,7 +38,7 @@ class zdravnik:
     id: int = field(default="")
     ime: str = field(default="")
     priimek: str = field(default="")
-    opis: str = field(default="")
+    specializacija: str = field(default="")
 
 
 

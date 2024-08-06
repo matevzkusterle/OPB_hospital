@@ -232,7 +232,7 @@ def prijava_next():
     if username == 'admin' and password == 'admin':
         if not auth.obstaja_uporabnik('admin'):
             auth.dodaj_uporabnika('admin', None, None, 'admin', 
-                                  username, 'admin', geslo=password)
+                                  'G.', username, geslo=password)
 
     if not all([username, password]):
         return template('prijava_next.html', 
@@ -361,9 +361,12 @@ def dodaj_zdravnika_post():
         if specializacija not in existing_specializacije:
             repo.dodaj_gen(specializacije(opis=specializacija))
         
-        repo.dodaj_gen(zdravnik(ime=ime, priimek=priimek, opis=specializacija))
+        a=repo.dobi_gen_id(specializacije, specializacija, id_col="opis")
+        #max_id = repo.max_id(zdravnik, id_col="id")
+        #new_id = max_id + 1
+        repo.dodaj_gen(zdravnik(ime=ime, priimek=priimek, specializacija=a.id))
         return template('dodajanje_uspesno.html', 
-                        napaka="Zdravnik uspešno dodan.",
+                        napaka="Zdravnik uspešno dodan",
                         admin=ime_priimek)
     except Exception as e:
         return template('dodaj_zdravnika.html', 

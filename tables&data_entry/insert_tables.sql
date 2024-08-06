@@ -13,58 +13,28 @@ INSERT INTO
 VALUES (-6, 'družinski zdravnik');
 
 INSERT INTO
-    zdravnik (
-        id,
-        ime,
-        priimek,
-        specializacija
-    )
-VALUES (1, 'Ana', 'Novak', -1);
+    zdravnik (ime, priimek, specializacija)
+VALUES ('Ana', 'Novak', -1);
 
 INSERT INTO
-    zdravnik (
-        id,
-        ime,
-        priimek,
-        specializacija
-    )
-VALUES (2, 'Luka', 'Horvat', -2);
+    zdravnik (ime, priimek, specializacija)
+VALUES ('Luka', 'Horvat', -2);
 
 INSERT INTO
-    zdravnik (
-        id,
-        ime,
-        priimek,
-        specializacija
-    )
-VALUES (3, 'Nina', 'Kovac', -3);
+    zdravnik (ime, priimek, specializacija)
+VALUES ('Nina', 'Kovac', -3);
 
 INSERT INTO
-    zdravnik (
-        id,
-        ime,
-        priimek,
-        specializacija
-    )
-VALUES (4, 'Matej', 'Zupan', -4);
+    zdravnik (ime, priimek, specializacija)
+VALUES ('Matej', 'Zupan', -4);
 
 INSERT INTO
-    zdravnik (
-        id,
-        ime,
-        priimek,
-        specializacija
-    )
-VALUES (5, 'Sara', 'Vidmar', -5);
+    zdravnik (ime, priimek, specializacija)
+VALUES ('Sara', 'Vidmar', -5);
 
 INSERT INTO
-    zdravnik (
-        id,
-        ime,
-        priimek,
-        specializacija
-    )
-VALUES (6, 'Sergej', 'Maze', -6);
+    zdravnik (ime, priimek, specializacija)
+VALUES ('Sergej', 'Maze', -6);
 
 INSERT INTO
     pacient (id, ime, priimek, szz)

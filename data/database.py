@@ -419,6 +419,14 @@ class Repo:
         
         return [zdravnik(id, ime, priimek, opis) for \
                 (id, ime, priimek, opis) in zdravnikk]
+    
+    def max_id(self, table: str, id_col: str) -> int:
+        self.cur.execute(
+            f"""
+            SELECT MAX({id_col}) FROM {table.__name__}
+            """
+        )
+        return self.cur.fetchone()[0]
 
     def pacientDiag(self) -> List[pacientDiag]: 
 
