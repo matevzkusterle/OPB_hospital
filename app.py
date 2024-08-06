@@ -411,7 +411,11 @@ def prikazi_moje_paciente():
 @get('/pogled_zdravnik/prikazi_seznam_pacientov')
 @zdravnik_required
 def prikazi_seznam_pacientov():
-    pacienti = repo.pacient()
+    uporabnikk = request.get_cookie("uporabnik")
+
+    zdravnik = repo.dobi_gen_id(uporabnik, uporabnikk, id_col="username")
+
+    pacienti = repo.izberi_paciente_zdravnika(zdravnik.ime, zdravnik.priimek)
     ime_priimek = \
             repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
     return template('prikazi_seznam_pacientov.html', pacienti = pacienti, 
@@ -422,13 +426,11 @@ def update_aktivnost():
     id_diagnoza = int(request.forms.getunicode('id'))
     aktivnost = request.forms.getunicode('aktivnost') == 'true'
 
-    # Create an instance of diagnoza with the updated aktivnost
-    diag = diagnoza(id=id_diagnoza, aktivnost=aktivnost)
+    diag_stara = repo.dobi_gen_id(diagnoza, id_diagnoza, id_col="id")
+    diag_stara.aktivnost = aktivnost
+    repo.posodobi_gen(diag_stara, id_col = "id")
 
-    # Call the posodobi_gen method
-    repo.posodobi_gen(diag)
-
-    return redirect('/prikazi_moje_paciente')
+    return redirect('prikazi_moje_paciente')
 
 @get('/pogled_zdravnik/dodaj_pacienta')
 @zdravnik_required
