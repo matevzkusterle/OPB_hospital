@@ -8,7 +8,7 @@
 
 /* Slog za container */
 div.container {
-  width: 80%;
+  width: 130%;
   margin: 0 auto;
   /* Center align the container */
 }
@@ -85,7 +85,7 @@ div.container {
 
 /* Slog za obrazec */
 .form-container {
-  max-width: 100%;
+  max-width: 130%;
   /* Maksimalna širina obrazca */
   margin: 0 auto;
   /* Centeriranje obrazca */
@@ -142,7 +142,7 @@ div.container {
 
 /* Container for the information display */
 .info-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
@@ -215,7 +215,7 @@ div.container {
 
 /* Slog za tabelo znotraj obrazca */
 .table-container {
-  max-width: 100%;
+  max-width: 130%;
   margin: 0 auto;
   padding: 1em;
   background-color: #fff;
@@ -261,7 +261,7 @@ div.container {
 
 /* Slog za tabelo */
 .searchtbl {
-  width: 100%;
+  width: 130%;
   text-align: center;
   border-collapse: collapse;
   margin-top: 20px;
