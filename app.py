@@ -170,12 +170,12 @@ def registracija_pacient():
     """
     Processes the registration of a doctor.
     """
-    ime = request.forms.get('ime')
-    priimek = request.forms.get('priimek')
-    szz = request.forms.get('szz')
-    uporabnisko_ime = request.forms.get('username')
-    geslo = request.forms.get('password')
-    potrditev_gesla = request.forms.get('password2')
+    ime = request.forms.getunicode('ime')
+    priimek = request.forms.getunicode('priimek')
+    szz = request.forms.getunicode('szz')
+    uporabnisko_ime = request.forms.getunicode('username')
+    geslo = request.forms.getunicode('password')
+    potrditev_gesla = request.forms.getunicode('password2')
 
     pacienti = repo.pacient()  # Pridobimo seznam zdravnikov iz baze
     existing_pacients = [pacient.szz for pacient in pacienti]
@@ -226,8 +226,8 @@ def prijava_next():
     Prijavi uporabnika v aplikacijo. Če je prijava uspešna, ustvari piškotke 
     o uporabniku in njegovi roli. Drugače sporoči, da je prijava neuspešna.
     """
-    username = request.forms.get('username')
-    password = request.forms.get('password')
+    username = request.forms.getunicode('username')
+    password = request.forms.getunicode('password')
 
     if username == 'admin' and password == 'admin':
         if not auth.obstaja_uporabnik('admin'):
@@ -338,9 +338,9 @@ def dodaj_zdravnika_post():
     Processes the form submission to add a doctor.
     """
     rola = request.get_cookie("rola") 
-    ime = request.forms.get('ime')
-    priimek = request.forms.get('priimek')
-    specializacija = request.forms.get('spec')
+    ime = request.forms.getunicode('ime')
+    priimek = request.forms.getunicode('priimek')
+    specializacija = request.forms.getunicode('spec')
     ime_priimek = \
             repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
 
@@ -365,7 +365,7 @@ def dodaj_zdravnika_post():
         #max_id = repo.max_id(zdravnik, id_col="id")
         #new_id = max_id + 1
         repo.dodaj_gen(zdravnik(ime=ime, priimek=priimek, specializacija=a.id))
-        return template('dodajanje_uspesno.html', 
+        return template('dodajanje_uspesno_admin.html', 
                         napaka="Zdravnik uspešno dodan",
                         admin=ime_priimek)
     except Exception as e:
@@ -436,9 +436,9 @@ def dodaj_pacienta_post():
     Processes the form submission to add a patient.
     """
     rola = request.get_cookie("rola")
-    ime = request.forms.get('ime')
-    priimek = request.forms.get('priimek')
-    szz = request.forms.get('szz')
+    ime = request.forms.getunicode('ime')
+    priimek = request.forms.getunicode('priimek')
+    szz = request.forms.getunicode('szz')
     ime_priimek = \
             repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
     if not ime or not priimek or not szz:
@@ -493,9 +493,9 @@ def dodaj_diagnozo_post():
     Processes the form submission to add a diagnosis to a patient.
     """
     rola = request.get_cookie("rola")
-    szz = request.forms.get('szz')
-    detajl = request.forms.get('diagnoza')
-    koda = request.forms.get('koda')
+    szz = request.forms.getunicode('szz')
+    detajl = request.forms.getunicode('diagnoza')
+    koda = request.forms.getunicode('koda')
     ime_priimek = \
             repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
 
