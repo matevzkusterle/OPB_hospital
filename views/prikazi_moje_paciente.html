@@ -12,6 +12,7 @@
           <th>Koda</th>
           <th>Detajli</th>
           <th>Aktivnost</th>
+          <th>Posodobi</th>
         </tr>
       </thead>
       <tbody>
@@ -22,16 +23,14 @@
           <td>{{pacientt.szz}}</td>
           <td>{{pacientt.koda}}</td>
           <td>{{pacientt.detajli}}</td>
+          <td>{{pacientt.aktivnost}}</td>
           <td>
             <form action="/pogled_zdravnik/update_aktivnost" method="post" style="display: flex; align-items: center;">
               <input type="hidden" name="id" value="{{pacientt.id_diagnoza}}">
-              <div class="select">
-                <select name="aktivnost" class="input is-small">
-                  <option value="true" {{'selected' if pacientt.aktivnost else '' }}>Aktivna</option>
-                  <option value="false" {{'selected' if not pacientt.aktivnost else '' }}>Neaktivna</option>
-                </select>
-              </div>
-              <button type="submit" class="button is-primary is-small" style="margin-left: 10px;">Posodobi</button>
+              <input type="hidden" name="aktivnost" value="{{ 'false' if pacientt.aktivnost else 'true' }}">
+              <button type="submit" class="button is-primary is-small" style="margin-left: 10px;">
+                Spremeni aktivnost
+              </button>
             </form>
           </td>
         </tr>
