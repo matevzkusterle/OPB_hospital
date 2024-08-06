@@ -469,7 +469,8 @@ class Repo:
     ) -> List[pacientDiag]:
         pacient_ids = [p.id for p in pacients]
         pacient_ids_str = ', '.join(str(id) for id in pacient_ids)
-
+        if len(pacient_ids) == 0:       
+            return []
         self.cur.execute(
             f"""
             SELECT 

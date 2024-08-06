@@ -417,6 +417,19 @@ def prikazi_seznam_pacientov():
     return template('prikazi_seznam_pacientov.html', pacienti = pacienti, 
                     napaka = None, zdravnik=ime_priimek)
 
+@post('/pogled_zdravnik/update_aktivnost')
+def update_aktivnost():
+    id_diagnoza = int(request.forms.getunicode('id'))
+    aktivnost = request.forms.getunicode('aktivnost') == 'true'
+
+    # Create an instance of diagnoza with the updated aktivnost
+    diag = diagnoza(id=id_diagnoza, aktivnost=aktivnost)
+
+    # Call the posodobi_gen method
+    repo.posodobi_gen(diag)
+
+    return redirect('/prikazi_moje_paciente')
+
 @get('/pogled_zdravnik/dodaj_pacienta')
 @zdravnik_required
 def dodaj_pacienta():
