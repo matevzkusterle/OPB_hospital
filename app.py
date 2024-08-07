@@ -114,14 +114,6 @@ def registracija_zdravnik():
     geslo = request.forms.getunicode('password')
     potrditev_gesla = request.forms.getunicode('password2')
 
-    # Preverimo, ali je zdravnik že v bazi
-    # zdravniki = repo.dobi_gen(Zdravnik) 
-    # print(zdravniki)
-    zdravniki = repo.zdravnik()  # Pridobimo seznam zdravnikov iz baze
-    existing_doctors = [
-    (zdravnik.ime, zdravnik.priimek) 
-    for zdravnik in zdravniki
-    ]
     uporabniki = repo.uporabnik()
     existing_usernames = [uporabnik.username for uporabnik in uporabniki]
     
@@ -185,12 +177,7 @@ def registracija_pacient():
     uporabnisko_ime = request.forms.getunicode('username')
     geslo = request.forms.getunicode('password')
     potrditev_gesla = request.forms.getunicode('password2')
-
-    pacienti = repo.pacient()  # Pridobimo seznam zdravnikov iz baze
-    existing_pacients = [pacient.szz for pacient in pacienti]
-    # print(existing_pacients)
-    # print(szz)
-    # print(szz in existing_pacients)
+   
     uporabniki = repo.uporabnik()
     existing_usernames = [uporabnik.username for uporabnik in uporabniki]
 
