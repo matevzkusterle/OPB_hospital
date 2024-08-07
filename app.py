@@ -185,32 +185,34 @@ def registracija_pacient():
     uporabniki = repo.uporabnik()
     existing_usernames = [uporabnik.username for uporabnik in uporabniki]
 
-    if uporabnisko_ime in existing_usernames:
-        return template('registracija_zdravnik.html', 
-                        napaka="Uporabnik s tem uporabnškim imenom že obstaja.")
-    # če ne izpolni vseh polj
     if not all([ime, priimek, szz, geslo, uporabnisko_ime, potrditev_gesla]):
         return template('registracija_pacient.html', 
                         napaka="Prosim, izpolnite vsa polja.")
+    
+    if uporabnisko_ime in existing_usernames:
+        return template('registracija_pacient.html', 
+                    napaka="Uporabnik s tem uporabniškim imenom že obstaja.")
 
     if geslo != potrditev_gesla:
         return template('registracija_pacient.html', 
                         napaka="Gesli se ne ujemata.")
 
-    
+    id_pacientov = [uporabnikk.id_pacient for uporabnikk in uporabniki]
     try:
-        if int(szz) in existing_pacients: 
+        nas_pacient = repo.dobi_gen_id(pacient, szz, id_col="szz")
+        if nas_pacient.id in id_pacientov:
+            return template('registracija_pacient.html', 
+                            napaka="Ta pacient je že registriran.")
+        if int(szz) in existing_pacients:
             # Dodamo uporabnika in zdravnika v bazo
-            nas_pacient = repo.dobi_gen_id(pacient, szz, id_col="szz")
             auth.dodaj_uporabnika(
                 uporabnisko_ime, None, nas_pacient.id, 'Pacient', 
                 ime, priimek, geslo=geslo)
-
             return template('registracija_uspesna.html', 
                             napaka=None, ime=ime, priimek=priimek)
         else:
             return template('registracija_pacient.html', 
-                            napaka="Napaka pri registracijiii.")
+                            napaka="Pacienta ni v bazi bolnišnice.")
 
     except Exception as e:
         return template('registracija_pacient.html', 
