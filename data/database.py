@@ -572,6 +572,22 @@ class Repo:
             ) in uporabnikk
                     ]
     
+    def diagnoza(self) -> List[diagnoza]:
+        self.cur.execute(
+            """
+            SELECT i.koda, i.detajli, i.aktivnost, i.id_zdravnik, i.id_pacient
+            FROM diagnoza i
+            """)
+        
+        diagnozaa = self.cur.fetchall()
+
+        if diagnozaa is None:
+            return []
+        return [
+            diagnoza(koda, detajli, aktivnost, id_zdravnik, id_pacient) for \
+            (koda, detajli, aktivnost, id_zdravnik, id_pacient) in diagnozaa
+                ]
+
     def specializacije(self) -> List[specializacije]:
         self.cur.execute(
             """

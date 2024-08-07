@@ -1,4 +1,4 @@
-%rebase('osnova.html', naslov='Seznam pacientov z diagnozami', stran='pacienti')
+%rebase('osnova.html', naslov='Seznam vseh pacientov', stran='pacienti')
 
 <div>
   <div style="display: flex;">
@@ -9,10 +9,7 @@
           <tr>
             <th>Ime</th>
             <th>Priimek</th>
-            <th>szz</th>
-            <th>koda</th>
-            <th>detajli</th>
-            <th>aktivnost</th>
+            <th>Številka zdravstvenega zavarovanja</th>
           </tr>
         </thead>
 
@@ -21,9 +18,6 @@
           <td>{{pacientt.ime}}</td>
           <td>{{pacientt.priimek}}</td>
           <td>{{pacientt.szz}}</td>
-          <td>{{pacientt.koda}}</td>
-          <td>{{pacientt.detajli}}</td>
-          <td>{{pacientt.aktivnost}}</td>
         </tr>
         %end
       </table>

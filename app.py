@@ -315,7 +315,7 @@ def prikazi_zdravnike():
 @cookie_required
 def prikazi_paciente():
 
-    pacienti = repo.pacientDiag()
+    pacienti = repo.pacient()
     ime_priimek = \
             repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
     return template('prikazi_paciente.html', pacienti = pacienti, 
@@ -401,7 +401,14 @@ def prikazi_moje_paciente():
 
     zdravnik = repo.dobi_gen_id(uporabnik, uporabnikk, id_col="username")
 
-    pacienti = repo.izberi_paciente_zdravnika(zdravnik.ime, zdravnik.priimek)
+    pacientii = repo.izberi_paciente_zdravnika(zdravnik.ime, zdravnik.priimek)
+    
+    diagnoze = repo.diagnoza()
+    id_pacientov = [diag.id_pacient for diag in diagnoze]
+
+    pacienti = [pacient for pacient in pacientii if pacient.id in id_pacientov]
+
+
     pacienti_diag = repo.pacient_to_pacientDiag(pacienti)
     ime_priimek = \
             repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
