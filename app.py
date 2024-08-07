@@ -126,23 +126,29 @@ def registracija_zdravnik():
     existing_usernames = [uporabnik.username for uporabnik in uporabniki]
     
     
+    if not all([ime, priimek, uporabnisko_ime, geslo, potrditev_gesla]):
+        return template('registracija_zdravnik.html', 
+                        napaka="Prosim, izpolnite vsa polja.")
     
     if uporabnisko_ime in existing_usernames:
         return template('registracija_zdravnik.html', 
                         napaka="Uporabnik s tem uporabnškim imenom že obstaja.")
     
-    if not all([ime, priimek, uporabnisko_ime, geslo, potrditev_gesla]):
-        return template('registracija_zdravnik.html', 
-                        napaka="Prosim, izpolnite vsa polja.")
 
     if geslo != potrditev_gesla:
         return template('registracija_zdravnik.html', 
                         napaka="Gesli se ne ujemata.")
     
+    id_zdravnikov = [uporabnikk.id_zdravnik for uporabnikk in uporabniki]
+    nas_zdravnik = repo.dobi_gen_dvoje(
+                zdravnik, ime, priimek, prvi="ime", drugi="priimek"
+                )
+    if nas_zdravnik.id in id_zdravnikov:
+        return template('registracija_zdravnik.html', 
+                        napaka="Ta zdravnik je že registriran.")
+
     if (ime, priimek) in existing_doctors:
-        nas_zdravnik = repo.dobi_gen_dvoje(
-            zdravnik, ime, priimek, prvi="ime", drugi="priimek"
-            )
+        
         # Dodamo uporabnika in zdravnika v bazo
         
         auth.dodaj_uporabnika(
