@@ -140,31 +140,34 @@ def registracija_zdravnik():
                         napaka="Gesli se ne ujemata.")
     
     id_zdravnikov = [uporabnikk.id_zdravnik for uporabnikk in uporabniki]
-    nas_zdravnik = repo.dobi_gen_dvoje(
+    try:
+        nas_zdravnik = repo.dobi_gen_dvoje(
                 zdravnik, ime, priimek, prvi="ime", drugi="priimek"
                 )
-    if nas_zdravnik.id in id_zdravnikov:
-        return template('registracija_zdravnik.html', 
-                        napaka="Ta zdravnik je že registriran.")
-
-    if (ime, priimek) in existing_doctors:
         
-        # Dodamo uporabnika in zdravnika v bazo
-        
-        auth.dodaj_uporabnika(
-            uporabnisko_ime, nas_zdravnik.id, None, 'Zdravnik',
-            ime, priimek, geslo=geslo)
-        return template('registracija_uspesna.html', napaka = None)
-    else:
+    except Exception as e:
         return template(
-            'registracija_zdravnik.html', 
-            napaka=(
-                f"Napaka pri registraciji: Imena {ime} {priimek} ni v bazi. "
-                f"Za registracijo zdravnika morate biti vnešeni v bazo."
+                'registracija_zdravnik.html', 
+                napaka=(
+                    f"Napaka pri registraciji: Imena {ime} {priimek} ni v bazi."
+                    f"Kot zdravnik morate biti za registracijo vnešeni v bazo."
+                )
             )
-        )
+    try:
+        if nas_zdravnik.id in id_zdravnikov:
+            return template('registracija_zdravnik.html', 
+                            napaka="Ta zdravnik je že registriran.")
 
+        else:
 
+            auth.dodaj_uporabnika(
+                uporabnisko_ime, nas_zdravnik.id, None, 'Zdravnik',
+                ime, priimek, geslo=geslo)
+            return template('registracija_uspesna.html', napaka = None)
+        
+    except Exception as e:
+        return template('registracija_zdravnik.html', 
+                        napaka="Napaka pri registraciji.")
 
 @get('/registracija_pacient')
 def registracija_pacient():
@@ -206,20 +209,24 @@ def registracija_pacient():
     id_pacientov = [uporabnikk.id_pacient for uporabnikk in uporabniki]
     try:
         nas_pacient = repo.dobi_gen_id(pacient, szz, id_col="szz")
+    except Exception as e:
+        return template(
+                'registracija_zdravnik.html', 
+                napaka=(
+                    f"Napaka pri registraciji: Imena {ime} {priimek} ni v bazi."
+                    f"Kot pacient morate biti za registracijo vnešeni v bazo."
+                )
+            )
+    try:
         if nas_pacient.id in id_pacientov:
             return template('registracija_pacient.html', 
                             napaka="Ta pacient je že registriran.")
-        if int(szz) in existing_pacients:
-            # Dodamo uporabnika in zdravnika v bazo
+        else:
             auth.dodaj_uporabnika(
                 uporabnisko_ime, None, nas_pacient.id, 'Pacient', 
                 ime, priimek, geslo=geslo)
             return template('registracija_uspesna.html', 
                             napaka=None, ime=ime, priimek=priimek)
-        else:
-            return template('registracija_pacient.html', 
-                            napaka="Pacienta ni v bazi bolnišnice.")
-
     except Exception as e:
         return template('registracija_pacient.html', 
                         napaka="Napaka pri registraciji.")
