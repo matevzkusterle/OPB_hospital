@@ -141,7 +141,7 @@ def registracija_zdravnik():
         return template(
                 'registracija_zdravnik.html', 
                 napaka=(
-                    f"Napaka pri registraciji: Imena {ime} {priimek} ni v bazi."
+                    f"Napaka pri registraciji: Imena {ime} {priimek} ni v bazi. "
                     f"Kot zdravnik morate biti za registracijo vnešeni v bazo."
                 )
             )
@@ -200,7 +200,7 @@ def registracija_pacient():
         return template(
                 'registracija_zdravnik.html', 
                 napaka=(
-                    f"Napaka pri registraciji: Imena {ime} {priimek} ni v bazi."
+                    f"Napaka pri registraciji: Imena {ime} {priimek} ni v bazi. "
                     f"Kot pacient morate biti za registracijo vnešeni v bazo."
                 )
             )
