@@ -11,7 +11,7 @@ from bottleext import (
     response, 
     template_user
 )
-import auth_private as auth_data
+import data.auth_public as auth_data
 from data.database import Repo
 
 # uvozimo ustrezne podatke za povezavo

@@ -11,7 +11,7 @@ from data.modeli import (
 )
 from pandas import DataFrame
 from re import sub
-import auth_private as auth
+import data.auth_public as auth
 from datetime import date
 from dataclasses_json import dataclass_json
 
