@@ -41,3 +41,7 @@ Pacient ima vpogled do svojih podatkov, zdravnikov in diagnoz. Če se prijavi zd
     ```
 
 3. Odprite brskalnik in pojdite na naslov http://localhost:8080.
+
+## Spletni dostop
+* [![bottle.py](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/matevzkusterle/OPB_hospital/main?urlpath=proxy/8080/) Aplikacija `bottle.py`
+
