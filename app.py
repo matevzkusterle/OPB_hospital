@@ -579,7 +579,7 @@ def dodaj_diagnozo_post():
         vsi_moji_pacienti = [pacientt.szz for pacientt \
                                 in repo.izberi_paciente_zdravnika(
                                     moje_ime, moj_priimek)]
-        if pacientt in vsi_moji_pacienti:
+        if pacientt.szz in vsi_moji_pacienti:
             diagnozaa = diagnoza(
                 id_pacient=pacientt.id,
                 id_zdravnik= zdravnik_id, 
