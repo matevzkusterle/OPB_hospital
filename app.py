@@ -483,6 +483,12 @@ def dodaj_pacienta_post():
                         zdravnik=ime_priimek)
     existing_pacients = [pacient.szz for pacient in repo.pacient()]
     if int(szz) in existing_pacients:
+
+        pacientt = repo.dobi_gen_id(pacient, int(szz), id_col="szz")
+        if not pacientt.ime == ime or not pacientt.priimek == priimek:
+            return template('dodaj_pacienta.html', rola=rola, 
+                            napaka="Pacient s to številko z.z. že obstaja.",
+                            zdravnik=ime_priimek)
         moje_ime, moj_priimek = repo.dobi_ime_in_priimek_uporabnika(
             request.get_cookie("uporabnik")
         )
