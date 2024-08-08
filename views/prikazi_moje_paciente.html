@@ -25,7 +25,7 @@
           <td>{{pacientt.detajli}}</td>
           <td>{{pacientt.aktivnost}}</td>
           <td>
-            <form action="/pogled_zdravnik/update_aktivnost" method="post" style="display: flex; align-items: center;">
+            <form action="{{url('update_aktivnost')}}" method="post" style="display: flex; align-items: center;">
               <input type="hidden" name="id" value="{{pacientt.id_diagnoza}}">
               <input type="hidden" name="aktivnost" value="{{ 'false' if pacientt.aktivnost else 'true' }}">
               <button type="submit" class="button is-primary is-small" style="margin-left: 10px;">
