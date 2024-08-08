@@ -451,7 +451,7 @@ def update_aktivnost():
     diag_stara.aktivnost = aktivnost
     repo.posodobi_gen(diag_stara, id_col = "id")
 
-    return redirect('prikazi_moje_paciente')
+    return redirect(url('prikazi_moje_paciente'))
 
 @get('/pogled_zdravnik/dodaj_pacienta')
 @zdravnik_required
