@@ -101,7 +101,16 @@ def registracija_zdravnik():
 
     return template('registracija_zdravnik.html', uporabnik=None, napaka=None)
 
-
+@get('/osnovna_stran')
+def osnovna_stran():
+    if request.get_cookie("rola") == 'admin':
+        return redirect(url('admin'))
+    elif request.get_cookie("rola") == 'Zdravnik':
+        return redirect(url('pogled_zdravnik'))
+    elif request.get_cookie("rola") == 'Pacient':
+        return redirect(url('pogled_pacient'))
+    else:
+        return redirect(url('prijava'))
 
 @post('/registracija_zdravnik')
 def registracija_zdravnik():
@@ -410,6 +419,9 @@ def prikazi_moje_paciente():
 
 
     pacienti_diag = repo.pacient_to_pacientDiag(pacienti)
+    # Example of sorting by 'ime' (name) and then by 'priimek' (surname)
+    pacienti_diag = sorted(pacienti_diag, key=lambda x: 
+                           (x.ime, x.priimek, x.koda))
     ime_priimek = \
             repo.dobi_ime_priimek_uporabnika(request.get_cookie("uporabnik"))
     
@@ -471,29 +483,49 @@ def dodaj_pacienta_post():
                         zdravnik=ime_priimek)
     existing_pacients = [pacient.szz for pacient in repo.pacient()]
     if int(szz) in existing_pacients:
-        return template(
-            'dodaj_pacienta.html',
-            rola=rola, 
-            napaka="Pacient s tem številom zdravstvenega zavarovanja že obstaja.",
-            zdravnik=ime_priimek
+        moje_ime, moj_priimek = repo.dobi_ime_in_priimek_uporabnika(
+            request.get_cookie("uporabnik")
         )
-    try:
-        pacientt = pacient(ime=ime, priimek=priimek, szz=szz)
-        repo.dodaj_gen(pacientt)
-        zdravnikk = repo.dobi_gen_id(
-            uporabnik, request.get_cookie("uporabnik"), id_col="username"
-            )
-        bridgee=bridge(
-            id_pacient=pacientt.id, id_zdravnik=zdravnikk.id_zdravnik
-            )
-        repo.dodaj_gen(bridgee, serial_col=None)
-        return template('dodajanje_uspesno.html', 
-                        napaka="Pacient uspešno dodan.",
-                        zdravnik=ime_priimek)
-    except Exception as e:
-        return template('dodaj_pacienta.html', rola=rola, 
-                        napaka=f"Napaka pri dodajanju pacienta: {e}",
-                        zdravnik=ime_priimek)
+
+        vsi_moji_pacienti = [pacientt.szz for pacientt \
+                                in repo.izberi_paciente_zdravnika(
+                                    moje_ime, moj_priimek)]
+
+        if int(szz) in vsi_moji_pacienti:
+            return template('dodajanje_uspesno.html', 
+                            napaka="Pacient že dodan.",
+                            zdravnik=ime_priimek)
+        else:
+            pacientt = repo.dobi_gen_id(pacient, int(szz), id_col="szz")
+            zdravnikk = repo.dobi_gen_id(
+                uporabnik, request.get_cookie("uporabnik"), id_col="username"
+                )
+            bridgee=bridge(
+                id_pacient=pacientt.id, id_zdravnik=zdravnikk.id_zdravnik
+                )
+            repo.dodaj_gen(bridgee, serial_col=None)
+
+            return template('dodajanje_uspesno.html', 
+                            napaka="Pacient uspešno dodan.",
+                            zdravnik=ime_priimek)
+    else:
+        try:
+            pacientt = pacient(ime=ime, priimek=priimek, szz=szz)
+            repo.dodaj_gen(pacientt)
+            zdravnikk = repo.dobi_gen_id(
+                uporabnik, request.get_cookie("uporabnik"), id_col="username"
+                )
+            bridgee=bridge(
+                id_pacient=pacientt.id, id_zdravnik=zdravnikk.id_zdravnik
+                )
+            repo.dodaj_gen(bridgee, serial_col=None)
+            return template('dodajanje_uspesno.html', 
+                            napaka="Pacient uspešno dodan.",
+                            zdravnik=ime_priimek)
+        except Exception as e:
+            return template('dodaj_pacienta.html', rola=rola, 
+                            napaka=f"Napaka pri dodajanju pacienta: {e}",
+                            zdravnik=ime_priimek)
 
 #diagnozo se lahko postavi le pacientu, ki je v bazi, torej v tabeli pacient
 #Torej, ko zdravnik dobi novega pacienta, ga najprej doda v bazo pacientov, \

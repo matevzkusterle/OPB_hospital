@@ -12,7 +12,7 @@
           <th>Koda</th>
           <th>Detajli</th>
           <th>Aktivnost</th>
-          <th>Možnost posodobitve aktivnosti</th>
+          <th>Spremeni aktivnost</th>
         </tr>
       </thead>
       <tbody>
@@ -29,7 +29,11 @@
               <input type="hidden" name="id" value="{{pacientt.id_diagnoza}}">
               <input type="hidden" name="aktivnost" value="{{ 'false' if pacientt.aktivnost else 'true' }}">
               <button type="submit" class="button is-primary is-small" style="margin-left: 10px;">
-                Spremeni aktivnost
+                %if pacientt.aktivnost:
+                Deaktiviraj
+                %else:
+                Aktiviraj
+                %end
               </button>
             </form>
           </td>

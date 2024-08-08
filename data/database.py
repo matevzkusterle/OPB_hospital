@@ -123,6 +123,29 @@ class Repo:
             )
         
         return f'{ime_priimek[0]} {ime_priimek[1]}'
+    
+    def dobi_ime_in_priimek_uporabnika(self,
+                                       username: str) -> tuple[str, str]:
+        """
+        Vrne ime in priimek uporabnika.
+        """
+
+        self.cur.execute(
+            """
+            SELECT ime, priimek FROM uporabnik WHERE username =
+            %s
+            """,
+            (username,)
+        )
+
+        ime_priimek = self.cur.fetchone()
+
+        if ime_priimek is None:
+            raise Exception(
+                f'Vrstica z username {username} ne obstaja v tabeli uporabnik'
+            )
+        
+        return ime_priimek[0], ime_priimek[1]
 
     
     def izberi_paciente_zdravnika(self, ime: str, 
@@ -152,7 +175,7 @@ class Repo:
         # return [pacient.from_dict(d) for d in pacienti]
         return [pacient(id, ime, priimek, szz) 
             for (id, ime, priimek, szz) in pacienti]
-    
+
     def izbrisi_gen(self,  typ: Type[T], id: int | str, id_col = "id"):
         """
         Generična metoda, ki vrne dataclass objekt pridobljen iz baze na 

@@ -1,14 +1,14 @@
 %rebase('osnova.html', napaka=napaka, naslov='Moji podatki', stran='moji podatki')
 
 <div class="info-container">
-  %for pacient in pacientt:
+  %for a in pacientt:
   <div class="info-item">
     <h3>Številka zdravstvenega zavarovanja</h3>
-    <p>{{pacient.szz}}</p>
+    <p>{{a.szz}}</p>
     <h3>Ime</h3>
-    <p>{{pacient.ime}}</p>
+    <p>{{a.ime}}</p>
     <h3>Priimek</h3>
-    <p>{{pacient.priimek}}</p>
+    <p>{{a.priimek}}</p>
   </div>
   %end
 </div>
