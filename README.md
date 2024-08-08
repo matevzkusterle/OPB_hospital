@@ -26,6 +26,9 @@ Pacient ima vpogled do svojih podatkov, zdravnikov in diagnoz. Če se prijavi zd
    conda create --name project_env python=3.10
     ```
 3. Aktivirajte novo okolje:
+    ```sh
+    conda activate project_env
+    ```
 ### Namestitev zahtev
 1. Prepričajte se, da ste v aktiviranem okolju `project_env`.
 2. Namestite zahteve iz datoteke `requirements.txt`:
