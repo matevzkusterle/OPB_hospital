@@ -566,9 +566,16 @@ def dodaj_diagnozo_post():
     
     try:
         pacientt = repo.dobi_gen_id(pacient, int(szz), id_col="szz")
-        if pacientt:
+        moje_ime, moj_priimek = repo.dobi_ime_in_priimek_uporabnika(
+            request.get_cookie("uporabnik")
+        )
+
+        vsi_moji_pacienti = [pacientt.szz for pacientt \
+                                in repo.izberi_paciente_zdravnika(
+                                    moje_ime, moj_priimek)]
+        if pacientt in vsi_moji_pacienti:
             diagnozaa = diagnoza(
-                id_pacient=pacientt.id, 
+                id_pacient=pacientt.id,
                 id_zdravnik= zdravnik_id, 
                 detajli=detajl, 
                 koda=koda, 
@@ -582,7 +589,7 @@ def dodaj_diagnozo_post():
             return template(
                 'dodaj_diagnozo.html', 
                 rola=rola, 
-                napaka="Pacient, kateremu želite dodeliti diagnozo, ne obstaja.",
+                napaka="Niste zdravnik tega pacienta.",
                 zdravnik=ime_priimek
                 )
     except Exception as e:
