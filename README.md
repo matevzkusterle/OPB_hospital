@@ -12,7 +12,7 @@ Pacient ima vpogled do svojih podatkov, zdravnikov in diagnoz. Če se prijavi zd
 
 ![ER diagram](ER_diagram/er-diagram.jpg)
 
-## Navodila za namestitev
+## Navodila za zagon aplikacije v VS Code (ali kakšnem drugem urejevalniku)
 
 ### Namestitev Conda
 
