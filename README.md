@@ -1,6 +1,7 @@
 # OPB hospital
 
 
+
 Projekt pri osnovi podatkovnih baz. Aplikacija uporabniku omogoča prijavo v sistem bolnišnice. 
 
 Prijaviti se je mogoče kot:
